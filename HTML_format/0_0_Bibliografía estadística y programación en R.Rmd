@@ -1,0 +1,40 @@
+---
+title: "Bibliografía sobre estadística y programación en R"
+author: "Joaquín Amat Rodrigo j.amatrodrigo@gmail.com"
+date: '2016'
+output:
+  html_document:
+    css: ~/R/x86_64-pc-linux-gnu-library/3.3/rmarkdown/rmd/h/bootstrap-3.3.5/css/journal.min_helvetica.css
+    highlight: haddock
+    number_sections: yes
+    theme: journal
+    toc: yes
+  pdf_document:
+    latex_engine: xelatex
+    toc: yes
+  word_document:
+    toc: yes
+---
+Versión PDF: https://github.com/JoaquinAmatRodrigo/Estadistica-con-R
+
+<br>
+
+\ \ \ \ \ \ El siguiente listado contiene las fuentes de información sobre estadística y programación en R que he ido encontrando y que me han resultado útiles. Están ordenadas según, a mi parecer, facilitan el aprendizaje.
+<br>
+
+
+1. **Open Intro Statistics**: Una buena introducción a la estadística. Bien explicado y con ejemplos interesantes. Libro gratuito con un curso online muy bueno.
+2. **Swirl**: aprender R desde el terminal de forma dinámica. Visitar página web para ver instrucciones de instalación.
+3. **Statistics Using R with Biological Examples**: En este libro se introduce de forma simultánea el uso básico de R con conceptos de estadística.
+4. **TheRBook Michael J Crawley**: Es un manual de uso de R. Recomendable leer los primeros capítulos para aprender los conceptos básicos. Los últimos capítulos son más útiles como consulta para temas concretos.
+5. **Handbook of Biological Statistics**: Un libro que explica los test estadísticos de forma muy clara sin profundizar en la matemática, identifica las ventajas y limitaciones de cada uno. Muy recomendable.
+6. **Bioestadística Francisca Rius Diaz**: Libro en español de introducción a la estadística. Con ejemplos para realizar de forma manual, no por ordenador.
+7. **Métodos estadísticos en ingenieria Rafael Romero Villafranca, Luisa Rosa Zúnica Ramajo**
+8. **Statistical Bioinformatics with R, Sunil K. Mathur**
+9. **R Tutorials by William B. King, Ph.D htt**p://ww2.coastal.edu/kingw/statistics/R-tutorials/. Describe los test estadísticos más comunes de forma práctica, con sus ventajas y desventajas. Incluye ejemplos en R.
+10. http://www.um.es/ae/FEIR/20/ apuntes de la Universidad de Murcia. Repaso de los diferentes test estadísticos, ventajas, limitaciones y ejemplos en R.
+11. **Bootstrap Methods and Permutation Tests by Tim Hesterberg**: Introducción muy intuitiva a los conceptos de *bootstrapping.*
+12. **Comparing groups Randomization and Bootsrap Methods using R Andrew S. Zieffler**: Descripción detallada de los métodos de *resampling* y *bootstrapping.*
+13. **Introduction to Statistical Learning with Aplications in R**: Muy buen libro en el que se introducen y se describen los principales modelos de regresión así como su implementación en R.
+14. **Points of Significance, Nature**: La revista científica *Nature Methods* publica unas columnas sobre estadística en las que se explica de forma muy clara los principales conceptos de estadística.
+
