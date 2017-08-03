@@ -212,13 +212,13 @@ $(document).ready(function () {
 <div id="bootstrapping" class="section level3">
 <h3>Bootstrapping</h3>
 <p><br></p>
-<p>      El escenario ideal para realizar inferencia estadística sobre una población es disponer de infinitas (o una gran cantidad) de muestras de dicha población, sin embargo, en la práctica raramente es posible. Si solo se dispone de una muestra y se considera que es representativa de la población, los valores de la variable aleatoria en la muestra aparecen aproximadamente con la misma proporción en que lo hacen en la población. El método de <em>Bootstrapping</em> se basa en generar nuevas pseudomuestras del mismo tamaño que la muestra real, realizando <em>sampling con replacement</em> de las observaciones. Si la muestra original es representativa de la población, la distribución del estadístico calculada a partir de las pseudomuestras (<em>bootstraping distribution</em>) se asemejará a la distribución muestral que se obtendría si se pudiera acceder a la población para generar nuevas muestras. Fue desarrollado por Bradley Efron en 1979.</p>
+<p>      El escenario ideal para realizar inferencia estadística sobre una población es disponer de infinitas (o una gran cantidad) de muestras de dicha población, sin embargo, en la práctica raramente es posible. Si solo se dispone de una muestra y se considera que es representativa de la población, los valores de la variable aleatoria en la muestra aparecen aproximadamente con la misma proporción en que lo hacen en la población. El método de <em>Bootstrapping</em> se basa en generar nuevas pseudomuestras del mismo tamaño que la muestra real, realizando <em>sampling with replacement</em> de las observaciones. Si la muestra original es representativa de la población, la distribución del estadístico calculada a partir de las pseudomuestras (<em>bootstraping distribution</em>) se asemejará a la distribución muestral que se obtendría si se pudiera acceder a la población para generar nuevas muestras. Fue desarrollado por Bradley Efron en 1979.</p>
 <p>      Dado que se podrían generar infinitas nuevas muestras mediante el <em>sampling with replacement</em>, el método de bootstrapping emplea únicamente una cantidad determinada por el usuario. Hace uso por lo tanto de la simulación de Monte Carlo.</p>
 <p>      El Bootstrapping no asume una asignación aleatoria de los grupos, sino que las muestras han sido obtenidas aleatoriamente de la o las poblaciones. Se aplica por lo tanto en diseños muestrales, no experimentales. Esta es la diferencia clave respecto a los test de permutación/<em>randomization</em>.</p>
 <p>El método bootstrapping se puede emplear para:</p>
 <p>      Calcular intervalos de confianza para un parámetro poblacional: se emplea el <em>sampling with replacement</em> a partir de la muestra original.</p>
 <p>      Calcular significancia estadística (<em>p-value</em>) para la diferencia entre dos poblaciones: Si bien este uso se asemeja al de los test de permutación/<em>randomization</em>, no es igual. Los test de permutación se emplean para contrastar la hipótesis nula de que las muestras pertenecen a una misma población (distribución) mediante el estudio de las diferencias debidas a la asignación aleatoria de los grupos. El método de bootstrapping contrasta también la hipótesis de que ambas muestras proceden de la misma población (distribución) pero lo hace mediante el estudio de las diferencias debidas al muestreo aleatorio. Se aplica por lo tanto a estudios en los que no ha habido una asignación aleatoria a los grupos previa realización de los experimentos. Los pasos a seguir son: se mezclan las observaciones de ambas muestras, se emplea el <em>sampling with replacement</em> sobre este <em>pool</em> para generar una nueva pseudomuestra del mismo tamaño, se separan las observaciones de la pseudomuestra en dos grupos de igual tamaño a los originales y se calcula la diferencia del estadístico entre ambas. El proceso se repite múltiples veces generando así la distribución de las diferencias esperadas debido al muestreo aleatorio. El <em>p-value</em> de dos colas se calcula como la proporción de pseudomuestras en las que el valor absoluto de la diferencia calculada es mayor o igual al valor absoluto de la diferencia observada.</p>
-<p>      Calcular intervalos de confianza para la diferencia entre dos poblaciones: Para esta finalidad se considera como hipótesis nula que las observaciones proceden de dos poblaciones distintas. Se emplea el <em>sampling with replacement</em> con la observaciones de cada muestra (sin mezclarlas) para generar dos nuevas pseudomuestras independientes y se calcula la diferencia del estadístico. Este proceso se repite múltiples veces generando la distribución que se obtendría si se extra cada vez dos muestras, cada una de su respectiva población, y se calculara la diferencia. La distribución resultante estará centrada en la verdadera diferencia entre las poblaciones.</p>
+<p>      Calcular intervalos de confianza para la diferencia entre dos poblaciones: Para esta finalidad se considera como hipótesis nula que las observaciones proceden de dos poblaciones distintas. Se emplea el <em>sampling with replacement</em> con la observaciones de cada muestra (sin mezclarlas) para generar dos nuevas pseudomuestras independientes y se calcula la diferencia del estadístico. Este proceso se repite múltiples veces generando la distribución que se obtendría si se extrajesen cada vez dos muestras, cada una de su respectiva población, y se calculara la diferencia. La distribución resultante estará centrada en la verdadera diferencia entre las poblaciones.</p>
 <p>      El método de bootstrapping se subdivide en paramétrico o no paramétrico dependiendo si se considera que la distribución generada sigue un determinado modelo teórico. <br><br></p>
 </div>
 </div>
@@ -265,7 +265,7 @@ $(document).ready(function () {
 </table>
 <p><br></p>
 <p>      La principal diferencia entre ambos métodos aparece cuando se emplean para calcular <em>p-values</em>.</p>
-<p>      Los test de significancia (cálculo de <em>p-value</em>) se basan en la hipótesis nula de que todas las observaciones proceden de la misma población. El objetivo del test es determinar si la diferencia observada entre los grupos se debe a un determinado factor (tratamiento) o solo a la variabilidad esperada por la naturaleza de un proceso aleatorio. Cuando la aleatoriedad se debe a la asignación de los sujetos (supuestamente iguales) a los distintos grupos se emplean los test de permutación o <em>randomization</em>. La estructura de un experimento que puede analizarse mediante test de permutación es: selección de sujetos del estudio, asignación aleatoria a diferentes grupos, aplicación de o los “tratamientos”, comparación de resultados. Los test de permutación/<em>randomization</em> responden a la pregunta ¿Cuánta variabilidad se espera en un determinado test estadístico debido únicamente a la aleatoriedad de las asignaciones si todos los sujetos proceden realmente de una misma población? Si se trata de comparar la media entre dos grupos la pregunta anterior equivale a ¿Qué diferencia entre medias cabe esperar dependiendo de cómo se distribuyan los sujetos en los dos grupos si todos proceden de una misma población? Aun siendo todos de una misma población, dado que no serán exactamente idénticos, habrá pequeñas diferencias dependiendo de cómo se agrupen.</p>
+<p>      Los test de significancia (cálculo de <em>p-value</em>) se basan en la hipótesis nula de que todas las observaciones proceden de la misma población. El objetivo del test es determinar si la diferencia observada entre los grupos se debe a un determinado factor (tratamiento) o solo a la variabilidad esperada por la naturaleza de un proceso aleatorio. Cuando la aleatoriedad se debe a la asignación de los sujetos (supuestamente iguales) a los distintos grupos se emplean los test de permutación o <em>randomization</em>. La estructura de un experimento que puede analizarse mediante test de permutación es: selección de sujetos del estudio, asignación aleatoria a diferentes grupos, aplicación de los “tratamientos”, comparación de resultados. Los test de permutación/<em>randomization</em> responden a la pregunta ¿Cuánta variabilidad se espera en un determinado test estadístico debido únicamente a la aleatoriedad de las asignaciones si todos los sujetos proceden realmente de una misma población? Si se trata de comparar la media entre dos grupos la pregunta anterior equivale a ¿Qué diferencia entre medias cabe esperar dependiendo de cómo se distribuyan los sujetos en los dos grupos si todos proceden de una misma población? Aun siendo todos de una misma población, dado que no serán exactamente idénticos, habrá pequeñas diferencias dependiendo de cómo se agrupen.</p>
 <p>      El <em>bootstraping</em> como test de significancia se emplea cuando la aleatoriedad es debida al proceso de obtención de las muestras y no a la asignación en grupos. Responden a la pregunta ¿Cuánta variabilidad se espera en un determinado estadístico debido únicamente al muestreo aleatorio si todos los sujetos proceden realmente de una misma población? Debido a las pequeñas diferencias entre los individuos de una población, si se extraen dos muestras aleatorias de ella y se comparan, no van a ser exactamente iguales, además esta diferencia será distinta para cada par de muestras aleatorias extraídas. La estructura de un experimento que puede analizarse mediante <em>bootstrapping</em> es: Se obtienen dos muestras aleatorias de dos poblaciones y se comparan.</p>
 <p>      Por lo tanto, aunque ambos test pueden emplearse para calcular <em>p-values</em>, sus aplicaciones no se solapan. Los test de permutación/<em>randomization</em> se emplean para diseños experimentales y el <em>bootstraping</em> para diseños muestrales.</p>
 <p>      El método de <em>bootstrapping</em> puede emplearse además, para generar intervalos de confianza de la verdadera diferencia de un parámetro entre dos poblaciones, mientras que los test de permutación/<em>randomization</em> no. El porqué reside en que la simulación bootstrapping, cuando se emplea por separado para cada muestra, genera una aproximación de la verdadera distribución del estadístico que se está estudiando, lo que permite generar intervalos de confianza que acoten su valor con una determinada seguridad. Cuando se quiere calcular un <em>p-value</em> se tiene que comparar el valor observado del estadístico con la distribución que cabría esperar de él bajo la hipótesis nula, no respecto a su verdadera distribución. Los test de permutación/<em>randomization</em> o los test de bootstrapping (aplicado al conjunto de observaciones mezcladas), generan la distribución esperada si se cumple la <span class="math inline">\(H_0\)</span>.</p>
@@ -356,7 +356,7 @@ p_value_corregido</code></pre></div>
 <div id="conclusion" class="section level4">
 <h4>Conclusión</h4>
 <p><br>       Los 356 sujetos del estudio fueron asignados de forma aleatoria a un grupo control (n=187) o a un grupo tratamiento (n=169) que asistió a clases extra escolares. Un test de permutación se empleó para determinar si existía una diferencia significativa en la capacidad empática promedio entre ambos grupos. El <em>p-value</em> fue calculado mediante una simulación de Monte Carlo con 9999 permutaciones usando la corrección de continuidad sugerida por Davison and Hikley(1997). El <em>p-value</em> obtenido muestra una evidencia muy débil en contra de la hipótesis nula de que el tratamiento no tiene efecto, sugiriendo que asistir a clases extra escolares no mejora la capacidad empática para los estudiantes que formaron parte del experimento. <em>Siendo estadísticamente estrictos, no se puede extrapolar a la población de estudiantes ya que la selección de sujetos no fue aleatoria</em></p>
-<p>      <em>Ha modo de comprobación, siendo los tamaños muestrales de más de 30 observaciones, el t-test debería dar un resultado similar</em></p>
+<p>A modo de comprobación, siendo los tamaños muestrales de más de 30 observaciones, el t-test debería dar un resultado similar.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(puntuacion ~<span class="st"> </span>grupo, <span class="dt">data =</span> datos, <span class="dt">var.equal =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## 
 ##  Two Sample t-test
@@ -478,7 +478,7 @@ p_value_corregido</code></pre></div>
 <div id="ejemplo" class="section level2">
 <h2>Ejemplo</h2>
 <p><br></p>
-<p>      <em>Empleando los datos del ejemplo de los estudiantes y la capacidad empática, se va a suponer que los datos pertenecen a un estudio que está realizando un departamento médico para evaluar la si un fármaco aumenta el razonamiento matemático de los estudiantes. Se sabe que no existe diferencia en el promedio de las puntuaciones obtenidas en el examen, pero se quiere evaluar si hay diferencia en la variabilidad. Esto es interesante porque aunque el fármaco no sea capaz de incrementar el promedio de capacidad de razonamiento, podría disminuir la diferencia entre sujetos</em></p>
+<p>      <em>Empleando los datos del ejemplo de los estudiantes y la capacidad empática, se va a suponer que los datos pertenecen a un estudio que está realizando un departamento médico para evaluar si un fármaco aumenta el razonamiento matemático de los estudiantes. Se sabe que no existe diferencia en el promedio de las puntuaciones obtenidas en el examen, pero se quiere evaluar si hay diferencia en la variabilidad. Esto es interesante porque aunque el fármaco no sea capaz de incrementar el promedio de capacidad de razonamiento, podría disminuir la diferencia entre sujetos</em></p>
 <p>La hipótesis nula considera que ambos grupos son iguales por lo que: <span class="math display">\[\sigma^2_{control} = \sigma^2_{tratamiento}\]</span> <span class="math display">\[\sigma^2_{control} - \sigma^2_{tratamiento} = 0\]</span></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datos &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;http://www.tc.umn.edu/~zief0002/Comparing-Groups/Data/AfterSchool.csv&quot;</span>, 
     <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">row.names =</span> <span class="dv">1</span>)
@@ -520,7 +520,7 @@ for (i in <span class="dv">1</span>:<span class="dv">9999</span>) {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(distribucion_permutaciones)</code></pre></div>
 <pre><code>## [1] 25.41886</code></pre>
 <p><br><br></p>
-<p>      La distribución de las permutaciones muestra que la diferencia media entre varianzas si el fármaco no tiene efecto es muy próxima a cero (-0.1461858, línea vertical negra). La desviación típica de la distribución de permutaciones indica la variabilidad de la diferencia de varianzas debida a la asignación aleatoria de los sujetos a los diferentes grupos.</p>
+<p>      La distribución de las permutaciones muestra que la diferencia media entre varianzas si el fármaco no tiene efecto es muy próxima a cero (-0.1462, línea vertical negra). La desviación típica de la distribución de permutaciones indica la variabilidad de la diferencia de varianzas debida a la asignación aleatoria de los sujetos a los diferentes grupos.</p>
 <p>      Finalmente, se calcula la probabilidad (<em>p-value</em>) de obtener diferencias igual o más extremas que la observada (líneas verticales azules) con y sin corrección de continuidad:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p_value =<span class="st"> </span>(<span class="kw">sum</span>(<span class="kw">abs</span>(distribucion_permutaciones) &gt;<span class="st"> </span>dif_obs))/<span class="dv">9999</span>
 p_value</code></pre></div>
@@ -565,7 +565,7 @@ p_value_corregido</code></pre></div>
 ## W = 0.85765, p-value = 0.0009003</code></pre>
 <p><br><br></p>
 <p>      La representación gráfica de los datos y el test de normalidad Shapiro-Wilk muestran que no se distribuyen de forma normal, lo que implica que la aproximación basada en el teorema del límite central para estimar el error estándar <span class="math inline">\(SE = \frac{sd}{\sqrt{n}}\)</span> deja de ser buena y por lo tanto tampoco los intervalos paramétricos basados en la estructura <span class="math inline">\([parámetro \ estimado \pm t_{\alpha}SE]\)</span> que se generen con esa estimación del SE. Una alternativa es emplear el Bootstrapping.</p>
-<p>      El método de <em>Bootstrapping</em> se basa en generar nuevas pseudomuestras del mismo tamaño que la muestra real, realizando <em>sampling con replacement</em> de las observaciones. Si la muestra original es representativa de la población, la distribución del estadístico calculada a partir de las pseudomuestras (<em>bootstraping distribution</em>) se asemejará a la distribución muestral que se obtendría si se pudiera acceder a la población para generar nuevas muestras. De tal forma que:</p>
+<p>      El método de <em>Bootstrapping</em> se basa en generar nuevas pseudomuestras del mismo tamaño que la muestra real, realizando <em>sampling with replacement</em> de las observaciones. Si la muestra original es representativa de la población, la distribución del estadístico calculada a partir de las pseudomuestras (<em>bootstraping distribution</em>) se asemejará a la distribución muestral que se obtendría si se pudiera acceder a la población para generar nuevas muestras. De tal forma que:</p>
 <ul>
 <li>La <em>sd</em> de la <em>bootstraping distribution</em> es un estimador del SE.</li>
 <li>La media de la <em>bootstraping distribution</em> es un estimador del verdadero parámetro poblacional.</li>
@@ -581,7 +581,7 @@ for (i in <span class="dv">1</span>:<span class="dv">9999</span>) {
 }</code></pre></div>
 <p><br><br></p>
 </div>
-<div id="estudio-la-bootstrapping-distribution" class="section level4">
+<div id="estudio-de-la-bootstrapping-distribution" class="section level4">
 <h4>2.Estudio la bootstrapping distribution</h4>
 <p><br></p>
 <div id="distribucion" class="section level5">
@@ -623,7 +623,7 @@ for (i in <span class="dv">1</span>:<span class="dv">9999</span>) {
 <p>      El intervalo de confianza más adecuado para <em>bootstrapping</em> se conoce como <em>Intervalo Bootstrapping Bias Corrected Acelerated BCa</em>. En R existen varios paquetes que permiten obtener la distribución de bootstrapping así como el intervalo <em>BCa</em>. <br><br></p>
 </div>
 <div id="solucion-mediante-r" class="section level4">
-<h4>Solución mediante R</h4>
+<h4>Solución mediante función boot()</h4>
 <p><br></p>
 <p>      La función <code>boot()</code> recibe como argumentos un vector con las observaciones, una función que calcule el estadístico de interés, que tiene que ser definida previamente por el usuario, y el número de simulaciones.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(boot)</code></pre></div>
@@ -848,7 +848,7 @@ p_value_corregido</code></pre></div>
 <p><br></p>
 <div id="conclusion-2" class="section level4">
 <h4>Conclusión</h4>
-<p><br>       Un test de bootstrapping no paramétrico se empleó para determinar si existe diferencia entre el promedio de logros académicos entre inmigrantes mexicanos y no mexicanos. Los datos se obtuvieron mediante muestreo aleatorio asegurando así la independencia de los datos. El <em>p-value</em> se calculó mediante 9999 simulaciones de Monte Carlo, empleando la corrección de continuidad sugerida por Davison y Hinkley (1997) resultando en 0.045. Esta es una evidencia moderada en contra de la hipótesis nula de que no hay diferencia entre poblaciones y sugiere que los logros académicos entre inmigrantes de nacionalidad mexicana y no mexicana son distintos.</p>
+<p><br>       Un test de bootstrapping no paramétrico se empleó para determinar si existe diferencia entre el promedio de logros académicos entre inmigrantes mexicanos y no mexicanos. Los datos se obtuvieron mediante muestreo aleatorio asegurando así la independencia de los datos. El <em>p-value</em> se calculó mediante 9999 simulaciones de Monte Carlo, empleando la corrección de continuidad sugerida por Davison y Hinkley (1997) resultando en 0.043. Esta es una evidencia moderada en contra de la hipótesis nula de que no hay diferencia entre poblaciones y sugiere que los logros académicos entre inmigrantes de nacionalidad mexicana y no mexicana son distintos.</p>
 <p><br><br> </p>
 </div>
 </div>
@@ -856,7 +856,7 @@ p_value_corregido</code></pre></div>
 <div id="boostraping-para-intervalos-de-confianza-y-tamano-del-efecto-effect-size-de-la-diferencia-entre-dos-poblaciones" class="section level1">
 <h1>Boostraping para intervalos de confianza y tamaño del efecto (<em>effect size</em>) de la diferencia entre dos poblaciones</h1>
 <p><br></p>
-<p>      Los test de hipótesis que evalúan la diferencia entre dos poblaciones generan un <em>p-value</em> basado en la hipótesis nula de que no existe diferencia del estadístico (media, mediana…) entre las poblaciones. Por esta razón, cuando el <em>bootstrapping</em> se emplea como test de hipótesis, las observaciones se mezclan dotas juntas y posteriormente se extraen las pseudomuestras. Cuando la finalidad del estudio es generar intervalos de confianza para la verdadera diferencia de un estadístico entre dos poblaciones, la hipótesis nula considera que las muestras sí proceden de dos poblaciones diferentes cada una con un valor distinto para el estadístico estudiado. Dada esta hipótesis nula, las pseudomuestras obtenidas por <em>sampling with replacement</em> se tienen que generar de forma separada para cada grupo. Esta es la diferencia entre el empleo de <em>bootstrapping</em> para calcular <em>p-values</em> y para calcular intervalos de confianza. <br><br></p>
+<p>      Los test de hipótesis que evalúan la diferencia entre dos poblaciones generan un <em>p-value</em> basado en la hipótesis nula de que no existe diferencia del estadístico (media, mediana…) entre las poblaciones. Por esta razón, cuando el <em>bootstrapping</em> se emplea como test de hipótesis, las observaciones se mezclan totas juntas y posteriormente se extraen las pseudomuestras. Cuando la finalidad del estudio es generar intervalos de confianza para la verdadera diferencia de un estadístico entre dos poblaciones, la hipótesis nula considera que las muestras sí proceden de dos poblaciones diferentes cada una con un valor distinto para el estadístico estudiado. Dada esta hipótesis nula, las pseudomuestras obtenidas por <em>sampling with replacement</em> se tienen que generar de forma separada para cada grupo. Esta es la diferencia entre el empleo de <em>bootstrapping</em> para calcular <em>p-values</em> y para calcular intervalos de confianza. <br><br></p>
 <div id="pasos-del-bootstrapping-no-parametrico-para-intervalos-de-confianza-hipotesis-alternativa" class="section level4">
 <h4>Pasos del Bootstrapping no paramétrico para intervalos de confianza (<em>hipótesis alternativa</em>)</h4>
 <p><br></p>
@@ -875,7 +875,7 @@ p_value_corregido</code></pre></div>
 <p>      El cálculo de <em>p-value</em> y los intervalos de confianza permiten responder a dos de las preguntas fundamentales cuando se comparan poblaciones:</p>
 <ul>
 <li>¿Existen evidencias que apunten a la existencia de una diferencia real entre las dos poblaciones? o ¿Es la diferencia observada la esperada por simple variabilidad?</li>
-<li>¿Si el la diferencia es real, cómo de grande es esta diferencia?</li>
+<li>¿Si la diferencia es real, cómo de grande es esta diferencia?</li>
 </ul>
 <p>      A pesar de la importancia de estas dos preguntas, existe una tercera que es fundamental a la hora de tomar decisiones en base a los resultados. ¿Es la diferencia suficientemente grande como para ser práctica? Cuando las unidades en la que se expresa la diferencia son frecuentes en el día a día, se puede interpretar fácilmente. Sin embargo, en muchas ocasiones la escala en la que se mide la diferencia no es intuitiva, lo que complica su interpretación así como su divulgación. Por esta razón siempre se debe reportar la diferencia obtenida en unidades estandarizadas, lo que se conoce como tamaño de efecto o <em>effect size</em>.</p>
 <p>      Uno de los tamaños de efecto más empleados es la <span class="math inline">\(Cohen's \ d\)</span>, que consiste en expresar la diferencia entre las medias en términos de desviación típica (<em>pooled sd</em>). <br><br></p>
@@ -984,7 +984,7 @@ boot_distribution &lt;-<span class="st"> </span><span class="kw">boot</span>(<sp
 <div id="ejemplo-2-1" class="section level2">
 <h2>Ejemplo 2</h2>
 <p><br></p>
-<p>      <em>Se dispone de un set de datos con información sobre el tiempo que una empresa de telefonía tarda en reparar los problemas que tienen dos grupos de consumidores (CLEC y ILEC). Se desea conocer cuál es la diferencia en la media los tiempos de reparación de ambos grupos empleando un intervalo de confianza del 95%.</em> Ejemplo del libro <em>Bootstrap Methods ans Permutation Test by Tim Hestemberg.</em></p>
+<p>      <em>Se dispone de un set de datos con información sobre el tiempo que una empresa de telefonía tarda en reparar los problemas que tienen dos grupos de consumidores (CLEC y ILEC). Se desea conocer cuál es la diferencia en la media de los tiempos de reparación de ambos grupos empleando un intervalo de confianza del 95%.</em> Ejemplo del libro <em>Bootstrap Methods ans Permutation Test by Tim Hestemberg.</em></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(<span class="st">&quot;resample&quot;</span>)
 <span class="kw">data</span>(<span class="st">&quot;Verizon&quot;</span>)
 <span class="kw">head</span>(Verizon)</code></pre></div>
@@ -1040,7 +1040,7 @@ boot_distribution &lt;-<span class="st"> </span><span class="kw">bootES</span>(<
     <span class="dt">contrast =</span> <span class="kw">c</span>(<span class="st">&quot;CLEC&quot;</span>, <span class="st">&quot;ILEC&quot;</span>), <span class="dt">R =</span> <span class="dv">9999</span>)</code></pre></div>
 <p><br><br></p>
 </div>
-<div id="estudio-la-bootstrapping-distribution-1" class="section level4">
+<div id="estudio-de-la-bootstrapping-distribution-1" class="section level4">
 <h4>2.Estudio la bootstrapping distribution</h4>
 <p><br></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(boot_distribution$t)</code></pre></div>
@@ -1278,7 +1278,7 @@ for (i in <span class="dv">1</span>:<span class="dv">9999</span>) {
 </div>
 <div id="conclusion-3" class="section level4">
 <h4>Conclusión</h4>
-<p><br>       Dado que <em>p-value</em> es mayor que alpha. No hay evidencias suficientes para considerar que los resultados que muestra la compañía no se puedan obtener por fluctuaciones aleatorias siendo la verdadera probabilidad de complicaciones del 10%.</p>
+<p><br>       Dado que <em>p-value</em> es mayor que alpha, no hay evidencias suficientes para considerar que los resultados que muestra la compañía no se puedan obtener por fluctuaciones aleatorias siendo la verdadera probabilidad de complicaciones del 10%.</p>
 <p><br><br> </p>
 </div>
 </div>
@@ -1348,17 +1348,17 @@ for (i in <span class="dv">1</span>:<span class="dv">9999</span>) {
 <p>Independencia:</p>
 <ul>
 <li>Dentro de cada muestra: El muestreo debe ser aleatorio y el tamaño de la muestra menor que el 10% de la población.</li>
-<li>Entre grupos/muestras: los datos no pueden ser parados.</li>
+<li>Entre grupos/muestras: los datos no pueden ser pareados.</li>
 </ul>
 <p>Tamaño y distribución</p>
 <p><span class="math inline">\(n_1p_{pool}\)</span> &amp; <span class="math inline">\(n_1(1-p_{pool})\)</span> = 13.9, 36.1 &gt;= 10 Al menos 10 eventos positivos y negativos esperados en la muestra 1.</p>
-<p><span class="math inline">\(n_2p_{pool}\)</span> &amp; <span class="math inline">\(n_(1-p_{pool})\)</span>= 11.12, 28.88 &gt;= 10 Al menos 10 eventos positivos y negativos esperados en la muestra 2.</p>
+<p><span class="math inline">\(n_2p_{pool}\)</span> &amp; <span class="math inline">\(n_2(1-p_{pool})\)</span>= 11.12, 28.88 &gt;= 10 Al menos 10 eventos positivos y negativos esperados en la muestra 2.</p>
 <p>      A pesar de que las condiciones se cumplen, están muy cerca del límite. La aproximación por teorema del límite central no es del todo precisa.<br><br></p>
 </div>
 <div id="calculo-de-p-value-1" class="section level4">
 <h4>Cálculo de <em>p-value</em></h4>
 <p><br></p>
-<p>      Mediante <em>bootstrapping</em> se puede obtener la distribución muestral de <em>p(control) - p(tratamiento)</em>. Acorde a la <span class="math inline">\(H_0\)</span>, la probabilidad de supervivencia en la misma en ambos grupos, para simular esto, se redistribuyen aleatoriamente (manteniendo el tamaño de cada grupo) los sujetos y se calcula la diferencia de proporciones. De los 90 individuos hay 50 control y 40 tratados.</p>
+<p>      Mediante <em>bootstrapping</em> se puede obtener la distribución muestral de <em>p(control) - p(tratamiento)</em>. Acorde a la <span class="math inline">\(H_0\)</span>, la probabilidad de supervivencia es la misma en ambos grupos, para simular esto, se redistribuyen aleatoriamente (manteniendo el tamaño de cada grupo) los sujetos y se calcula la diferencia de proporciones. De los 90 individuos hay 50 control y 40 tratados.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">total_individuos &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">TRUE</span>, <span class="dv">25</span>), <span class="kw">rep</span>(<span class="ot">FALSE</span>, <span class="dv">65</span>))
 posicion_individuos &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">90</span>)
 permutation_distribution &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">9999</span>)
