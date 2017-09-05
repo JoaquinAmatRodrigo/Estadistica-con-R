@@ -289,13 +289,13 @@ div.tocify {
 <div id="cross-validation" class="section level1">
 <h1>Cross-Validation</h1>
 <p><br></p>
-<p>      El término <em>Cross-Validation</em> abarca distintas estrategias que permiten estimar el <em>test error rate</em>. Para ello se excluyen una serie de observaciones del <em>training data set</em> disponible, se ajusta el modelo y finalmente se evalua con los datos excluidos. <br><br></p>
+<p>      El término <em>Cross-Validation</em> abarca distintas estrategias que permiten estimar el <em>test error rate</em>. Para ello se excluyen una serie de observaciones del <em>training data set</em> disponible, se ajusta el modelo y finalmente se evalúa con los datos excluidos. <br><br></p>
 <div id="validacion-simple" class="section level2">
 <h2>Validación simple</h2>
 <p><br></p>
 <p>      El método más sencillo consiste en dividir aleatoriamente las observaciones disponibles en dos grupos, uno se emplea para entrenar al modelo y otro para evaluarlo. Si bien es la opción más simple, tiene dos problemas importantes:</p>
 <ul>
-<li><p>La estimación del <em>test error rate</em> es altamente variable dependiendo de qué observaciones se incluyan como set de entrenamiento y cuales como set de validación (problema de varianza).</p></li>
+<li><p>La estimación del <em>test error rate</em> es altamente variable dependiendo de qué observaciones se incluyan como set de entrenamiento y cuáles como set de validación (problema de varianza).</p></li>
 <li><p>Al excluir parte de las observaciones disponibles como datos de entrenamiento (generalmente la mitad), se dispone de menos información con la que crear el modelo y por lo tanto se reduce su capacidad. Esto suele tener como consecuencia una sobrestimación del <em>test error</em> comparado al que se obtendría si se emplearan todas las observaciones para el entrenamiento (problema de <em>bias</em>). <br><br></p></li>
 </ul>
 </div>
