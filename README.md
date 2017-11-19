@@ -5,11 +5,11 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 
 + [Bibliografía estadística y programación en R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/0_0_Bibliograf%C3%ADa_estad%C3%ADstica_y_programaci%C3%B3n_en_R.pdf)
 
-+ [Análisis de normalidad mediante gráficos y contrastes de hipótesis]()
++ [Análisis de normalidad mediante gráficos y contrastes de hipótesis](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/8_An%C3%A1lisis_de__Normalidad_gr%C3%A1ficos_y_contrastes_de_hip%C3%B3tesis.pdf)
 
-+ [Análisis de la homogeneidad de varianza, homocedasticidad]()
++ [Análisis de la homogeneidad de varianza, homocedasticidad](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/9_Analisis_de_la_homogeneidad_de_varianza__homocedasticidad.pdf)
 
-+ [T-test]()
++ [T-test](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/12_T-test.pdf)
 
 + [Inferencia para variables categóricas: proporciones, intervalos de confianza y test de hípótesis]()
 
