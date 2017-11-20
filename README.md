@@ -27,34 +27,34 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 
 + [Test estadísticos para variables cualitativas: test binomial exacto, test multinomial y test chi-cuadrado goodnes of fit](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/22.1_Test_estad%C3%ADsticos_para_variables_cualitativas_Test_binomial_exacto%2C_test_multinomial_y_test_chi-cuadrado_goodnes_of_fit.pdf)
 
-+ [Test estadísticos para variables cualitativas: test exacto de fisher, chi-cuadrado de Pearson, McNemar QCochran]()
++ [Test estadísticos para variables cualitativas: test exacto de fisher, chi-cuadrado de Pearson, McNemar QCochran](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/22.2_Test_estad%C3%ADsticos_para_variables_cualitativas_test_exacto_de_fisher%2C_chi-cuadrado_de_Pearson%2C_McNemar_QCochran.pdf)
 
-+ [Resampling, Test de permutación, Simulación de Monte Carlo y Bootstrapping]()
++ [Resampling, Test de permutación, Simulación de Monte Carlo y Bootstrapping](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/23_Resampling_Test_de_permutaci%C3%B3n%2C_Simulaci%C3%B3n_de_Monte_Carlo_y_Bootstrapping.pdf)
 
-+ [Correlación y Regresión lineal]()
++ [Correlación y Regresión lineal](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/24_Correlaci%C3%B3n_y_Regresi%C3%B3n_lineal.pdf)
 
-+ [Regresión lineal múltiple]()
++ [Regresión lineal múltiple](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/25_Regresi%C3%B3n_lineal_m%C3%BAltiple.pdf)
 
-+ [Ejemplo práctico de regresión lineal simple, múltiple, polinomial e interacción entre predictores]()
++ [Ejemplo práctico de regresión lineal simple, múltiple, polinomial e interacción entre predictores](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/26_Ejemplo_pr%C3%A1ctico_de_regresi%C3%B3n_lineal_simple%2C_m%C3%BAltiple%2C_polinomial_e_interacci%C3%B3n_entre_predictores.pdf)
 
-+ [Regresión logística simple y múltiple]()
++ [Regresión logística simple y múltiple](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/27_Regresi%C3%B3n_log%C3%ADstica_simple_y_m%C3%BAltiple.pdf)
 
-+ [Linear Discriminant Analysis LDA y Quadratic Discriminant Analysis QDA]()
++ [Linear Discriminant Analysis LDA y Quadratic Discriminant Analysis QDA](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/28_Linear_Discriminant_Analysis_LDA_y_Quadratic_Discriminant_Analysis_QDA.pdf)
 
-+ [Comparación entre regresión logística, linear discriminant analisis (LDA) y K-NN]()
++ [Comparación entre regresión logística, linear discriminant analisis (LDA) y K-NN](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/29_Comparaci%C3%B3n_entre_regresi%C3%B3n_log%C3%ADstica%2C_linear_discriminant_analisis__LDA__y_K-NN%2C_Ejemplos.pdf)
 
-+ [Validación de modelos de regresion: Cross-validation, OneLeaveOut, Bootstrap]()
++ [Validación de modelos de regresion: Cross-validation, OneLeaveOut, Bootstrap](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/30_Validaci%C3%B3n_de_modelos_de_regresion_Cross-validation%2C_OneLeaveOut%2C_Bootstrap.pdf)
 
-+ [Selección de predictores y mejor modelo: Subset selection, Ridge, Lasso y dimension reduction]()
++ [Selección de predictores y mejor modelo: Subset selection, Ridge, Lasso y dimension reduction](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/31_Seleccion_de_predictores_y_mejor_modelo_Subset_selection%2C_Ridge%2C_Lasso_y_dimension_reduction.pdf)
 
-+ [Métodos de regresión no lineal: Regresión Polinómica, *Regression Splines*, *Smooth Splines* y GAMs]()
++ [Métodos de regresión no lineal: Regresión Polinómica, *Regression Splines*, *Smooth Splines* y GAMs](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/32_Metodos_de_regresi%C3%B3n_no_lineal_Regresi%C3%B3n_Polin%C3%B3mica%2C_Regression_Splines%2C_Smooth_Splines_y_GAMs.pdf)
 
-+ [Árboles de predicción: tree-based, bagging, random forest, boosting]()
++ [Árboles de predicción: tree-based, bagging, random forest, boosting](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/33_Arboles_de_%20predicci%C3%B3n__tree-based%2C_bagging%2C_random_forest%2C_boosting.pdf)
 
-+ [Máquinas de Vector Soporte (Support Vector Machines)]()
++ [Máquinas de Vector Soporte (Support Vector Machines)](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/34_Maquinas_de_Vector_Soporte_Support_Vector_Machines.pdf)
 
-+ [Análisis de Componentes Principales (Principal Component Analysis, PCA) y t-SNE]()
++ [Análisis de Componentes Principales (Principal Component Analysis, PCA) y t-SNE](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/35_Principal_Component_Analysis.pdf)
 
-+ [Quantile Regression]()
++ [Quantile Regression](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/36_Quantile_Regression.pdf)
 
-+ [Clustering y Heatmaps]()
++ [Clustering y Heatmaps](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/37_Clustering_y_Heatmaps.pdf)
