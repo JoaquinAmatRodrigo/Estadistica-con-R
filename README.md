@@ -48,7 +48,7 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 
 + [Métodos de regresión no lineal: Regresión Polinómica, *Regression Splines*, *Smooth Splines* y GAMs](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/32_Metodos_de_regresi%C3%B3n_no_lineal_Regresi%C3%B3n_Polin%C3%B3mica%2C_Regression_Splines%2C_Smooth_Splines_y_GAMs.pdf)
 
-+ [Árboles de predicción: tree-based, bagging, random forest, boosting](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/33_Arboles_de_%20predicci%C3%B3n__tree-based%2C_bagging%2C_random_forest%2C_boosting.pdf)
++ [Árboles de predicción: bagging, random forest, boosting y C5.0](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/33_Arboles_de_%20predicci%C3%B3n__tree-based%2C_bagging%2C_random_forest%2C_boosting.pdf)
 
 + [Máquinas de Vector Soporte (Support Vector Machines)](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/34_Maquinas_de_Vector_Soporte_Support_Vector_Machines.pdf)
 
