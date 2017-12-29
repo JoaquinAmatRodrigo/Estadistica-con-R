@@ -3,4 +3,4 @@ Para poder visualizar archivos HTML directamente desde Github se puede pegar el 
 https://htmlpreview.github.io/
 http://rawgit.com/
 
-o bien visitar mi cuenta en [Rpubs](https:/rpubs.com/Joaquin_AR)
+o bien visitar mi cuenta en Rpubs https://rpubs.com/Joaquin_AR
