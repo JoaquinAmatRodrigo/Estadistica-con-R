@@ -1,6 +1,6 @@
 # Estadistica-con-R
 
-Este repositorio contiene apuntes personales sobre estadística, bioestadística, *machine learning* y lenguaje de programación R, principalmente aplicada al campo de la biología. Si encuentran algún error o para cualquier comentario no duden en contactarme **j.amatrodrigo@gmail.com**. Para ver los artículos en formato html visitar [Rpubs](https://rpubs.com/Joaquin_AR).
+Este repositorio contiene apuntes personales sobre estadística, bioestadística, *machine learning* y lenguaje de programación R, principalmente aplicada al campo de la biología. Si encuentran algún error o para cualquier comentario no duden en contactarme **j.amatrodrigo@gmail.com**, me ayudará mucho a seguir mejorando. Para ver los artículos en formato html visitar [Rpubs](https://rpubs.com/Joaquin_AR).
 
 + [Bibliografía estadística y programación en R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/0_0_Bibliograf%C3%ADa_estad%C3%ADstica_y_programaci%C3%B3n_en_R.pdf)
 
