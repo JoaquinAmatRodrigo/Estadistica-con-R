@@ -24,6 +24,8 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 
 + [Friedman test: alternativa no paramétrica al ANOVA de datos dependientes](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/21_Friedman_test_alternativa_no_param%C3%A9trica_al_ANOVA_de_datos_dependientes.pdf)
 
++ [Text mining con R: ejemplo práctico Twitter](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/38_Text_minig_con_R_ejemplo_practico_Twitter.pdf)
+
 + [Test estadísticos para variables cualitativas: test binomial exacto, test multinomial y test chi-cuadrado goodnes of fit](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/22.1_Test_estad%C3%ADsticos_para_variables_cualitativas_Test_binomial_exacto%2C_test_multinomial_y_test_chi-cuadrado_goodnes_of_fit.pdf)
 
 + [Test estadísticos para variables cualitativas: test exacto de fisher, chi-cuadrado de Pearson, McNemar QCochran](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/22.2_Test_estad%C3%ADsticos_para_variables_cualitativas_test_exacto_de_fisher%2C_chi-cuadrado_de_Pearson%2C_McNemar_QCochran.pdf)
