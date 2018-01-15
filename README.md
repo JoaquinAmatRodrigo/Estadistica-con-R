@@ -59,3 +59,5 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 + [Quantile Regression](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/36_Quantile_Regression.pdf)
 
 + [Clustering y Heatmaps](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/37_Clustering_y_Heatmaps.pdf)
+
++ [Text mining con R: ejemplo práctico Twitter](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/38_Text_minig_con_R_ejemplo_practico_Twitter.pdf)
