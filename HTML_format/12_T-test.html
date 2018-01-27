@@ -435,7 +435,7 @@ pre {
 <p><br></p>
 <p>      El tamaño del efecto o también llamado <em>effect size</em> es la diferencia neta observada entre los grupos de un estudio. No se trata de una medida de inferencia estadística ya que no se pretende identificar si las poblaciones son significativamente diferentes, sino que simplemente indica la diferencia observada entre muestras, independientemente de la varianza que tengan. Se trata de un parámetro que siempre debe acompañar a los p-values, ya que un p-value solo indica si hay evidencias significativas para rechazar la hipótesis nula pero no dice nada de si la diferencia es importante o práctica. Esto último se averigua mediante el tamaño del efecto.</p>
 <p>      En el caso de los t-test de medias independientes, existen dos medidas posibles del tamaño del efecto: la <em>d de Cohen</em> y la <em>r de Pearson</em>. Ambas son equivalentes y pueden transformarse de una a otra. Cada una de estas medidas tiene unas magnitudes recomendadas para considerar el tamaño del efecto como pequeño, mediano o grande. La función <em>cohen.d()</em> del paquete <em>effsize</em> permite calcular el tamaño del efecto de la diferencia de medias independientes.</p>
-<p>D DE COHEN PATA T-TEST INDEPENDIENTES:</p>
+<p>D DE COHEN PARA T-TEST INDEPENDIENTES:</p>
 <p><span class="math display">\[d= \frac{|diferencia \ de \ medias \ entre \ los \ grupos|}{sd}\]</span></p>
 <p>Existen dos formas distintas se utilizan para calcular la sd conjunta de ambas muestras:</p>
 <p><span class="math display">\[sd=\sqrt{\frac{(n-1)sd_1^2+(n-2)sd_2^2)}{n1+n2-2}}\]</span> <span class="math display">\[sd=\sqrt{\frac{sd_1^2+sd_2^2}{n1+n2}}\]</span></p>
@@ -552,11 +552,11 @@ pre {
 </div>
 <div id="ejemplo2-solucion-mediante-r" class="section level3">
 <h3>Ejemplo2 Solución mediante R</h3>
-<p>      <em>El datset “births” del paquete openintro contiene información sobre 150 nacimientos junto con información de las madres. Se quiere determinar si existen evidencias significativas de que el peso de los recién nacidos cuyas madres fuman (f) difiere de aquellos cuyas madres no fuman (nf).</em></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(openintro)
-<span class="kw">require</span>(knitr)
+<p>      <em>El datset <code>births</code> del paquete <code>openintro</code> contiene información sobre 150 nacimientos junto con información de las madres. Se quiere determinar si existen evidencias significativas de que el peso de los recién nacidos cuyas madres fuman (f) difiere de aquellos cuyas madres no fuman (nf).</em></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(openintro)
+<span class="kw">library</span>(knitr)
 <span class="kw">data</span>(births)
-<span class="kw">kable</span>(<span class="kw">head</span>(births,<span class="dv">4</span>),<span class="dt">align =</span> <span class="st">&quot;c&quot;</span>)</code></pre></div>
+<span class="kw">kable</span>(<span class="kw">head</span>(births, <span class="dv">4</span>), <span class="dt">align =</span> <span class="st">&quot;c&quot;</span>)</code></pre></div>
 <table>
 <thead>
 <tr class="header">
