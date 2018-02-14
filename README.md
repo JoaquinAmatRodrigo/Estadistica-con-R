@@ -54,7 +54,7 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 
 + [Análisis de Componentes Principales (Principal Component Analysis, PCA) y t-SNE](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/35_Principal_Component_Analysis.pdf)
 
-+ [Quantile Regression](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/36_Quantile_Regression.pdf)
++ [Regresión cuantílica (Quantile Regression)](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/36_Quantile_Regression.pdf)
 
 + [Clustering y Heatmaps](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/37_Clustering_y_Heatmaps.pdf)
 
