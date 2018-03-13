@@ -4,6 +4,8 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 
 + [Bibliografía estadística y programación en R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/0_0_Bibliograf%C3%ADa_estad%C3%ADstica_y_programaci%C3%B3n_en_R.pdf)
 
++ [Sistemas_de_recomendacion con R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/39_Sistemas_de_recomendacion.pdf)
+
 + [Text mining con R: ejemplo práctico Twitter](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/38_Text_minig_con_R_ejemplo_practico_Twitter.pdf)
 
 + [Clustering y Heatmaps](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/37_Clustering_y_Heatmaps.pdf)
