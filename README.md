@@ -61,3 +61,5 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 + [Análisis de la homogeneidad de varianza, homocedasticidad](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/9_Analisis_de_la_homogeneidad_de_varianza__homocedasticidad_.pdf)
 
 + [Análisis de normalidad mediante gráficos y contrastes de hipótesis](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/8_An%C3%A1lisis_de__Normalidad_gr%C3%A1ficos_y_contrastes_de_hip%C3%B3tesis.pdf)
+
++ [Tobit Regression: modelos lineales para datos censurados](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/40_Tobit_Regression_modelos_lineales_para_datos_censurados.pdf)
