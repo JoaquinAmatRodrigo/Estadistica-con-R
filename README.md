@@ -4,6 +4,10 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 
 + [Bibliografía estadística y programación en R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/0_0_Bibliograf%C3%ADa_estad%C3%ADstica_y_programaci%C3%B3n_en_R.pdf)
 
++ [Machine Learning con R y caret](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/41_Machine_learning_con_R_y_caret.pdf)
+
++ [Tobit Regression: modelos lineales para datos censurados](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/40_Tobit_Regression_modelos_lineales_para_datos_censurados.pdf)
+
 + [Sistemas de recomendación con R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/39_Sistemas_de_recomendacion_con_R.pdf)
 
 + [Text mining con R: ejemplo práctico Twitter](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/38_Text_minig_con_R_ejemplo_practico_Twitter.pdf)
@@ -61,5 +65,3 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 + [Análisis de la homogeneidad de varianza, homocedasticidad](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/9_Analisis_de_la_homogeneidad_de_varianza__homocedasticidad_.pdf)
 
 + [Análisis de normalidad mediante gráficos y contrastes de hipótesis](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/8_An%C3%A1lisis_de__Normalidad_gr%C3%A1ficos_y_contrastes_de_hip%C3%B3tesis.pdf)
-
-+ [Tobit Regression: modelos lineales para datos censurados](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/40_Tobit_Regression_modelos_lineales_para_datos_censurados.pdf)
