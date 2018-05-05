@@ -65,3 +65,5 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 + [Análisis de la homogeneidad de varianza, homocedasticidad](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/9_Analisis_de_la_homogeneidad_de_varianza__homocedasticidad_.pdf)
 
 + [Análisis de normalidad mediante gráficos y contrastes de hipótesis](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/8_An%C3%A1lisis_de__Normalidad_gr%C3%A1ficos_y_contrastes_de_hip%C3%B3tesis.pdf)
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Joaquín Amat Rodrigo</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
