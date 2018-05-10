@@ -4,6 +4,8 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 
 + [Bibliografía estadística y programación en R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/0_0_Bibliograf%C3%ADa_estad%C3%ADstica_y_programaci%C3%B3n_en_R.pdf)
 
++ [Clasificación de tumores con Machine Learning](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/42_Clasificacion_de_tumores_con_Machine_Learning.pdf)
+
 + [Machine Learning con R y caret](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/41_Machine_learning_con_R_y_caret.pdf)
 
 + [Tobit Regression: modelos lineales para datos censurados](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/40_Tobit_Regression_modelos_lineales_para_datos_censurados.pdf)
