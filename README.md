@@ -8,6 +8,8 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 
 + [Machine Learning con R y caret](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/41_Machine_learning_con_R_y_caret.pdf)
 
++ [Reglas de asociación y algoritmo Apriori](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/43_Reglas_de_asociacion.pdf)
+
 + [Tobit Regression: modelos lineales para datos censurados](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/40_Tobit_Regression_modelos_lineales_para_datos_censurados.pdf)
 
 + [Sistemas de recomendación con R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/39_Sistemas_de_recomendacion_con_R.pdf)
