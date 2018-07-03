@@ -278,6 +278,7 @@ text-indent: 1px;
 
 .tocify {
   font-size: 15px;
+  text-align: left;
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -312,6 +313,7 @@ color: #6d6d6d;
 }
 
 body{
+text-align: justify;
 background-color: #ffffff;
 font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
 font-size: 18px;
@@ -444,7 +446,7 @@ p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt"
     \tau_y &amp; \text{if } y^*_i \leq \tau
     \end{cases}
 \]</span></p>
-<p>donde <span class="math inline">\(P\)</span> es probabilidad, <span class="math inline">\(\tau\)</span> límite de censura, <span class="math inline">\(\tau_y\)</span> el valor que se le asigna a la variable latente <span class="math inline">\(Y*\)</span> cuando se le aplica la censura, <span class="math inline">\(y|y&gt;\tau\)</span> y <span class="math inline">\(y|y&gt;\tau_y\)</span> son el condicional de que <span class="math inline">\(Y\)</span> sea mayor que el límite de censura y el valor asignado a la censura respectivamente.</p>
+<p>donde <span class="math inline">\(P\)</span> es probabilidad, <span class="math inline">\(\tau\)</span> límite de censura, <span class="math inline">\(\tau_y\)</span> el valor que se le asigna a la variable latente <span class="math inline">\(Y^*\)</span> cuando se le aplica la censura, <span class="math inline">\(y|y&gt;\tau\)</span> y <span class="math inline">\(y|y&gt;\tau_y\)</span> son el condicional de que <span class="math inline">\(Y\)</span> sea mayor que el límite de censura y el valor asignado a la censura respectivamente.</p>
 <p>Lo que hace útil al método de Tobit es que permite hacer estimaciones de <span class="math inline">\(Y^*\)</span> a pesar de tener observaciones únicamente de <span class="math inline">\(Y\)</span>. <br><br></p>
 <div id="ejemplo" class="section level2">
 <h2>Ejemplo</h2>
