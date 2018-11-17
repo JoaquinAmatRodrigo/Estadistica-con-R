@@ -2,9 +2,9 @@
 
 Este repositorio contiene apuntes personales sobre estadística, bioestadística, *machine learning* y lenguaje de programación R. Si encuentran algún error o para cualquier comentario no duden en contactarme **j.amatrodrigo@gmail.com**, me ayudará a seguir mejorando. Para ver los documentos en formato web (html) visitar [Rpubs](https://rpubs.com/Joaquin_AR).
 
-+ [Bibliografía estadística y programación en R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/0_0_Bibliograf%C3%ADa_estad%C3%ADstica_y_programaci%C3%B3n_en_R.pdf)  [   (html)](http://htmlpreview.github.io/?https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/HTML_format/0_0_Bibliograf%C3%ADa_estad%C3%ADstica_y_programaci%C3%B3n_en_R.html)
++ [Bibliografía estadística y programación en R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/0_0_Bibliograf%C3%ADa_estad%C3%ADstica_y_programaci%C3%B3n_en_R.pdf)  [(html)](http://htmlpreview.github.io/?https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/HTML_format/0_0_Bibliograf%C3%ADa_estad%C3%ADstica_y_programaci%C3%B3n_en_R.html)
 
-+ [Algoritmo genético para la selección de predictores](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/46_Algoritmo_genetico_para_seleccion_de_predictores.pdf)
++ [Algoritmo genético para la selección de predictores](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/46_Algoritmo_genetico_para_seleccion_de_predictores.pdf)  [(html)](http://htmlpreview.github.io/?https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/HTML_format/46_Algoritmo_genetico_para_seleccion_de_predictores.html)
 
 + [Análisis farmacogenómico de paneles celulares: drug screening e identificación de biomarcadores](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/45_Analisis_farmacogenomico.pdf)
 
