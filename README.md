@@ -8,6 +8,8 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 
 + [Análisis farmacogenómico de paneles celulares: drug screening e identificación de biomarcadores](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/45_Analisis_farmacogenomico.pdf)
 
++ [Gráficos ICE para interpretar modelos predictivos](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/47_Graficos_ICE_individual_conditional_expectation.pdf
+)
 
 + [Machine Learning con H2O y R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/44_Machine_Learning_con_H2O_y_R.pdf)
 
