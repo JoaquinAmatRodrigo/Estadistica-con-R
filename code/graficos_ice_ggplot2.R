@@ -364,7 +364,7 @@ calcular_graficar_ice <- function(modelo, X, y, predictores = NULL,
     .f = ICEbox::ice,
     object = modelo,
     X = X,
-    y = datos_y,
+    y = y,
     frac_to_build = frac_to_build,
     verbose = FALSE
   )
@@ -377,8 +377,7 @@ calcular_graficar_ice <- function(modelo, X, y, predictores = NULL,
     color_by = color_by
   )
   
-  #ggpubr::ggarrange(plotlist = graficos, ncol = 2, nrow = 2)
-  gridExtra::marrangeGrob(graficos, ncol = 2, nrow = 2)
+  gridExtra::marrangeGrob(graficos, ncol = 1, nrow = length(predictores))
 }
 
 calcular_graficar_c_ice <- function(modelo, X, y, predictores = NULL,
@@ -406,7 +405,7 @@ calcular_graficar_c_ice <- function(modelo, X, y, predictores = NULL,
     .f = ICEbox::ice,
     object = modelo,
     X = X,
-    y = datos_y,
+    y = y,
     frac_to_build = frac_to_build,
     verbose = FALSE
   )
@@ -419,8 +418,7 @@ calcular_graficar_c_ice <- function(modelo, X, y, predictores = NULL,
     color_by = color_by
   )
   
-  #ggpubr::ggarrange(plotlist = graficos, ncol = 2, nrow = 2)
-  gridExtra::marrangeGrob(graficos, ncol = 2, nrow = 2)
+  gridExtra::marrangeGrob(graficos, ncol = 1, nrow = length(predictores))
 }
 
 calcular_graficar_d_ice <- function(modelo, X, y, predictores = NULL,
@@ -448,7 +446,7 @@ calcular_graficar_d_ice <- function(modelo, X, y, predictores = NULL,
     .f = ICEbox::ice,
     object = modelo,
     X = X,
-    y = datos_y,
+    y = y,
     frac_to_build = frac_to_build,
     verbose = FALSE
   )
@@ -468,6 +466,5 @@ calcular_graficar_d_ice <- function(modelo, X, y, predictores = NULL,
     color_by = color_by
   )
   
-  #ggpubr::ggarrange(plotlist = graficos, ncol = 2, nrow = 2)
-  gridExtra::marrangeGrob(graficos, ncol = 2, nrow = 2)
+  gridExtra::marrangeGrob(graficos, ncol = 1, nrow = length(predictores))
 }
