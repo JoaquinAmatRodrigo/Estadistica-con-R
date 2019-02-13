@@ -64,7 +64,7 @@ crear_poblacion <- function(n_poblacion, n_variables, n_max = NULL, n_min = NULL
   return(poblacion)
 }
 
-alcular_fitness_individuo_rf <- function(x, y, cv, seed=123, verbose=TRUE,...){
+calcular_fitness_individuo_rf <- function(x, y, cv, seed=123, verbose=TRUE,...){
   # Argumentos
   #   x:       matriz de predictores.
   #   y:       variable respuesta.
