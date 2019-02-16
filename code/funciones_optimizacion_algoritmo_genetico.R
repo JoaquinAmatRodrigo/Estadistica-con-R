@@ -1,8 +1,6 @@
 ################################################################################
-#              FUNCIONES OPTIMIZACION CON ALGORITMO GENÉTICO                   #
+#       FUNCIONES OPTIMIZACION CON ALGORITMO GENÉTICO Y NELDER-MEAD            #
 ################################################################################
-
-
 
 crear_poblacion <- function(n_poblacion, n_variables, limite_inf = NULL,
                             limite_sup = NULL, verbose = TRUE){
@@ -102,6 +100,7 @@ crear_poblacion <- function(n_poblacion, n_variables, limite_inf = NULL,
   return(poblacion)
 }
 
+
 calcular_fitness_individuo <- function(individuo, funcion_objetivo, optimizacion,
                                        verbose=TRUE,...){
   # Argumentos
@@ -126,9 +125,9 @@ calcular_fitness_individuo <- function(individuo, funcion_objetivo, optimizacion
   
   # Cálculo fitness.
   if(optimizacion == "maximizar"){
-    fitness <- do.call(funcion, args = as.list(individuo))
+    fitness <- do.call(funcion_objetivo, args = as.list(individuo))
   }else if(optimizacion == "minimizar"){
-    fitness <- 1 - do.call(funcion, args = as.list(individuo))
+    fitness <- 1 - do.call(funcion_objetivo, args = as.list(individuo))
   }else{
     stop("El argumento optimización debe ser maximizar o minimizar.")
   }
@@ -140,15 +139,14 @@ calcular_fitness_individuo <- function(individuo, funcion_objetivo, optimizacion
   return(fitness)
 }
 
-
 calcular_fitness_poblacion <- function(poblacion, funcion_objetivo, optimizacion,
                                        verbose = TRUE, ...){
   # Esta función devuelve el fitness de cada individuo de una población.
   # 
   # Argumentos
   #   poblacion: matriz que representa la población de individuos.
-  #   funcion: nombre de la función que se desea optimizar. Debe de haber sido
-  #            definida previamente.
+  #   funcion_objetivo: nombre de la función que se desea optimizar.
+  #                     Debe de haber sido definida previamente.
   #   optimizacion: "maximizar" o "minimizar". Dependiendo de esto, la relación 
   #                 del fitness es directamente o indirectamente proporcional al
   #                 valor de la función.
@@ -281,7 +279,7 @@ cruzar_individuos <- function(parental_1, parental_2){
                               size = length(parental_1),
                               replace = TRUE)
   # El resto de posiciones se heredan del parental_2.
-  herencia_parent_2 <- !herencia_parent_1
+  herencia_parent_2 <- !(herencia_parent_1)
   
   descendencia[herencia_parent_1] <- parental_1[herencia_parent_1]
   descendencia[herencia_parent_2] <- parental_2[herencia_parent_2]
@@ -295,8 +293,8 @@ mutar_individuo <- function(individuo, limite_inf, limite_sup,
                             min_distribucion = -1, max_distribucion = 1){
   # Argumentos:
   #   individuo: vector que representa a un individuo.
-  #   prob_mut:  probabilidad que tiene cada posición del vector de mutar.
-  #   distribucion: distribución de la que obtener el factor de mutación: Puede
+  #   prob_mut:  probabilidad que tiene cada posición del individuo de mutar.
+  #   distribucion: distribución de la que obtener el factor de mutación. Puede
   #                 ser: "normal", "uniforme" o "aleatoria".
   #   media_distribucion: media de la distribución si se selecciona
   #                       distribucion = "normal".
@@ -357,7 +355,6 @@ mutar_individuo <- function(individuo, limite_inf, limite_sup,
   return(individuo)
 }
 
-
 calcular_fitness_poblacion_paral <- function(poblacion, funcion_objetivo,
                                              optimizacion, n_cores = NULL,
                                              verbose = TRUE, ...){
@@ -366,8 +363,8 @@ calcular_fitness_poblacion_paral <- function(poblacion, funcion_objetivo,
   # 
   # Argumentos
   #   poblacion: matriz que representa la población de individuos.
-  #   funcion:      nombre de la función que se desea optimizar. Debe de haber sido
-  #                 definida previamente.
+  #   funcion_objetivo: nombre de la función que se desea optimizar. Debe de 
+  #                     haber sido definida previamente.
   #   optimizacion: "maximizar" o "minimizar". Dependiendo de esto, la relación del
   #                fitness es directamente o indirectamente proporcional al valor de
   #                la función.
@@ -433,10 +430,67 @@ optimizar_ga <- function(
   parada_temprana = FALSE,
   rondas_parada = NULL,
   tolerancia_parada = NULL,
+  Nelder_Mead = TRUE,
   paralelizado = FALSE,
   n_cores = NULL,
   verbose = FALSE,
   ...){
+  # ARGUMENTOS:
+  #=============================================================================
+  #
+  # funcion_objetivo: nombre de la función que se desea optimizar. Debe de haber
+  #                   sido definida previamente.
+  # n_variables:      longitud de los individuos.
+  # optimizacion:     "maximizar" o "minimizar". Dependiendo de esto, la relación 
+  #                   del fitness es directamente o indirectamente proporcional al
+  #                   valor de la función.
+  # limite_inf:       vector con el límite inferior de cada variable. Si solo se 
+  #                   quiere imponer límites a algunas variables, emplear NA para
+  #                   las que no se quiere acotar.
+  # limite_sup:       vector con el límite superior de cada variable. Si solo se 
+  #                   quiere imponer límites a algunas variables, emplear NA para
+  #                   las que no se quieren acotar.
+  # n_poblacion:      número total de individuos de la población.
+  # n_generaciones:   número total de generaciones creadas.
+  # elitismo:         porcentaje de mejores individuos de la población actual que 
+  #                   pasan directamente a la siguiente población.
+  # prob_mut:         probabilidad que tiene cada posición del individuo de mutar.
+  # distribucion:     distribución de la que obtener el factor de mutación. Puede
+  #                   ser: "normal", "uniforme" o "aleatoria".
+  # media_distribucion: media de la distribución si se selecciona distribucion="normal".
+  # sd_distribucion:  desviación estándar de la distribución si se selecciona
+  #                   distribucion="normal".  
+  # min_distribucion: mínimo la distribución si se selecciona distribucion="uniforme". 
+  # max_distribucion: máximo la distribución si se selecciona distribucion="uniforme". 
+  # metodo_seleccion: método para establecer la probabilidad de selección. Puede
+  #                   ser: "ruleta", "rank" o "tournament".
+  # parada_temprana:  si durante las últimas "rondas_parada" generaciones la diferencia
+  #                   absoluta entre mejores individuos no es superior al valor de
+  #                  "tolerancia_parada", se detiene el algoritmo y no se crean
+  #                   nuevas generaciones.
+  # rondas_parada:    número de generaciones consecutivas sin mejora mínima para que
+  #                   se active la parada temprana.
+  # tolerancia_parada: valor mínimo que debe tener la diferencia de generaciones
+  #                    consecutivas para considerar que hay cambio.
+  # Nelder_Mead:      TRUE para que el mejor individuo devuelto por el algoritmo 
+  #                   genético se intente mejorar con optimización "Nelder_Mead".
+  # paralelizado:     TRUE para paralelizar el algoritmo genético.
+  # n_cores:          número de cores para la paralelización.
+  # verbose:          TRUE para que se imprima por pantalla el resultado de cada
+  #                   paso del algoritmo. 
+  
+  # RETORNO:
+  #=============================================================================
+  # La función devuelve una lista con 5 elementos:
+  #   fitness:            una lista con el fitness del mejor individuo de cada
+  #                       generación.
+  #   mejores_individuos: una lista con la combinación de predictores del mejor
+  #                       individuo de cada generación.
+  #   mejor_individuo:    combinación de predictores del mejor individuo encontrado
+  #                       en todo el proceso.   
+  #   diferencia_abs:     una lista con la diferencia absoluta entre el fitness 
+  #                       del mejor individuo de generaciones consecutivas.   
+  #   df_resultados:      un dataframe con todos los resultados anteriores.
   
   # COMPROBACIONES INICIALES
   # ============================================================================
@@ -614,22 +668,32 @@ optimizar_ga <- function(
     }
   }
   
+  # IDENTIFICACIÓN DEL MEJOR INDIVIDUO DE TODO EL PROCESO
+  # ==========================================================================
+  mejor_individuo <- resultados_individuo[[which.max(unlist(resultados_fitness))]]
+  
+  # Si Nelder_Mead = TRUE, el mejor individuo identificado mediante el 
+  # algoritmo genético se somete a un proceso de optimización Nelder-Mead con
+  # el objetivo de mejorar la convergencia final.
+  if(Nelder_Mead){
+    
+    optmizacion_NM <- optim(par = mejor_individuo,
+                            fn = function(par){
+                              do.call(funcion, args = as.list(par))
+                            },
+                            method = "Nelder-Mead")
+    mejor_individuo <-   optmizacion_NM$par           
+  }
+  
   # RESULTADOS
   # ============================================================================
-  # La función devuelve una lista con 4 elementos:
-  #   fitness:           una lista con el fitness del mejor individuo de cada
-  #                      generación.
-  #   mejor_individuo:   una lista con la combinación de predictores  del mejor
-  #                      individuo de cada generación.
-  #   diferencia_abs:    una lista con la diferencia absoluta entre el fitness 
-  #                      del mejor individuo de generaciones consecutivas.   
-  #   df_resultados:     un dataframe con todos los resultados anteriores.          
   
   # Para crear el dataframe se convierten las listas a vectores del mismo tamaño.
   fitness        <- unlist(resultados_fitness)
   predictores    <- resultados_individuo[!sapply(resultados_individuo, is.null)]
   predictores    <- sapply(predictores, function(x){paste(x, collapse = ", ")})
   diferencia_abs <- c(NA, unlist(diferencia_abs))
+  
   
   df_resultados <- data.frame(
     generacion     = seq_along(fitness),
@@ -638,10 +702,11 @@ optimizar_ga <- function(
     diferencia_abs = diferencia_abs
   )
   
-  return(list(fitness           = resultados_fitness,
-              mejor_individuo   = resultados_individuo,
-              diferencia_abs    = diferencia_abs,
-              df_resultados     = df_resultados)
+  return(list(fitness              = resultados_fitness,
+              mejores_individuos   = resultados_individuo,
+              diferencia_abs       = diferencia_abs,
+              df_resultados        = df_resultados,
+              mejor_individuo      = mejor_individuo)
   )
 }
 
@@ -654,24 +719,27 @@ optimizar_ga <- function(
 funcion <- function(x, y){
   sin(y)*exp(1-cos(x))^2 + cos(x)*exp(1-sin(y))^2 + (x-y)^2
 }
-# 
-# 
-resultados <- optimizar_ga(
-        funcion_objetivo = funcion,
-        n_variables = 2,
-        optimizacion = "minimizar",
-        limite_inf = c(-10, -5),
-        limite_sup = c(0, 0),
-        n_poblacion = 50,
-        n_generaciones = 500,
-        elitismo = 0,
-        prob_mut = 0.1,
-        distribucion = "uniforme",
-        min_distribucion = -1,
-        max_distribucion = 1,
-        parada_temprana = FALSE,
-        rondas_parada = NULL,
-        tolerancia_parada = NULL,
-        paralelizado = FALSE,
-        verbose = FALSE
-        )
+
+resultados_ga <- optimizar_ga(
+                    funcion_objetivo = funcion,
+                    n_variables = 2,
+                    optimizacion = "minimizar",
+                    limite_inf = c(-10, -10),
+                    limite_sup = c(10, 10),
+                    n_poblacion = 150,
+                    n_generaciones = 500,
+                    elitismo = 0.01,
+                    prob_mut = 0.1,
+                    distribucion = "uniforme",
+                    min_distribucion = -1,
+                    max_distribucion = 1,
+                    metodo_seleccion = "tournament",
+                    parada_temprana = TRUE,
+                    rondas_parada = 10,
+                    tolerancia_parada = 10^-8,
+                    Nelder_Mead = TRUE,
+                    paralelizado = FALSE,
+                    verbose = FALSE
+               )
+
+resultados_ga$mejor_individuo
