@@ -5,7 +5,6 @@
 library(foreach)
 library(doParallel)
 library(randomForest)
-library(yardstick)
 library(caret)
 
 crear_poblacion <- function(n_poblacion, n_variables, n_max = NULL, n_min = NULL,
