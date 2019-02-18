@@ -74,11 +74,11 @@ calcular_fitness_individuo_rf <- function(x, y, cv, metrica = NULL,
   #   y:       variable respuesta.
   #   cv:      número de particiones de validación cruzada.
   #   seed:    semilla para garantizar reproducibilidad en el proceso de CV.
-  #   metrica. métrica utilizad apara calcular el fitness. Por defecto es el -MSE
+  #   metrica: métrica utilizad apara calcular el fitness. Por defecto es el -MSE
   #            para regresión y Accuracy para clasificación. En el caso de clasificación
   #            binaria, se acepta también f1 y kappa.
   #   nivel_referencia: valor de la variable respuesta considerado como referencia.
-  #                    Necesario cuando la métrica es f1 o kappa.
+  #                     Necesario cuando la métrica es f1 o kappa.
   #   verbose: mostrar información del proceso por pantalla.
 
   # Retorno:
@@ -209,9 +209,9 @@ calcular_fitness_poblacion <- function(poblacion, x, y, cv, seed = 123,
   #   verbose:   mostrar información del proceso por pantalla.
   #   modelo:    tipo de modelo empleado para calcular el fitness. Puede ser
   #              lm o rf.
-  #   metrica. métrica utilizad apara calcular el fitness. Por defecto es el -MSE
+  #   metrica: métrica utilizad apara calcular el fitness. Por defecto es el -MSE
   #            para regresión y accuracy para clasificación. En el caso de clasificación
-  #            binaria, se acepta también f1.
+  #            binaria, se acepta también f1 y kappa.
   #   nivel_referencia: valor de la variable respuesta considerado como referencia.
   #                     Necesario cuando la métrica es f1 o kappa.
 
