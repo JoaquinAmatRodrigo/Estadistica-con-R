@@ -899,7 +899,7 @@ seleccion <- selecionar_predictores(
   prob_mut = 0.01,
   metodo_seleccion = "tournament",
   modelo = "glm",
-  metrica = "f1",
+  metrica = "accuracy",
   nivel_referencia = "1",
   cv = 5,
   parada_temprana = FALSE,
