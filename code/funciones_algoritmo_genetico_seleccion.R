@@ -6,18 +6,21 @@ library(foreach)
 library(doParallel)
 library(randomForest)
 library(caret)
+library(MLmetrics)
 
 crear_poblacion <- function(n_poblacion, n_variables, n_max = NULL, n_min = NULL,
                             verbose = TRUE) {
-  # Argumentos:
-  #   n_poblacion: número total de individuos de la población.
-  #   n_variables: longitud de los individuos.
-  #   n_max:       número máximo de TRUEs que puede contener un individuo.
-  #   n_min:       número mínimo de TRUEs que puede contener un individuo.
-  #   verbose:     mostrar información del proceso por pantalla.
+  # ARGUMENTOS
+  # ============================================================================
+  # n_poblacion: número total de individuos de la población.
+  # n_variables: longitud de los individuos.
+  # n_max:       número máximo de TRUEs que puede contener un individuo.
+  # n_min:       número mínimo de TRUEs que puede contener un individuo.
+  # verbose:     mostrar información del proceso por pantalla.
 
-  # Retorno: una matriz de tamaño n_poblacion x n_variables que representa
-  #          una población.
+  # RETORNO
+  # ============================================================================
+  # Una matriz de tamaño n_poblacion x n_variables que representa una población.
 
   # Comprobaciones.
   if (isTRUE(n_max > n_variables)) {
@@ -62,6 +65,7 @@ crear_poblacion <- function(n_poblacion, n_variables, n_max = NULL, n_min = NULL
     print(paste("Número de predictores máximo por individuo =", n_max))
     cat("\n")
     print(poblacion)
+    cat("\n")
   }
 
   return(poblacion)
@@ -70,21 +74,23 @@ crear_poblacion <- function(n_poblacion, n_variables, n_max = NULL, n_min = NULL
 calcular_fitness_individuo_rf <- function(x, y, cv, metrica = NULL,
                                           nivel_referencia = NULL,
                                           seed = 123, verbose = TRUE, ...) {
-  # Argumentos
-  #   x:       matriz de predictores.
-  #   y:       variable respuesta.
-  #   cv:      número de particiones de validación cruzada.
-  #   seed:    semilla para garantizar reproducibilidad en el proceso de CV.
-  #   metrica: métrica utilizad apara calcular el fitness. Por defecto es el -MSE
-  #            para regresión y Accuracy para clasificación. En el caso de clasificación
-  #            binaria, se acepta también f1 y kappa.
-  #   nivel_referencia: valor de la variable respuesta considerado como referencia.
+  # ARGUMENTOS
+  # ============================================================================
+  # x:       matriz de predictores.
+  # y:       variable respuesta.
+  # cv:      número de particiones de validación cruzada.
+  # seed:    semilla para garantizar reproducibilidad en el proceso de CV.
+  # metrica: métrica utilizad apara calcular el fitness. Por defecto es el -MSE
+  #          para regresión y Accuracy para clasificación. En el caso de clasificación
+  #          binaria, se acepta también f1 y kappa.
+  # nivel_referencia: valor de la variable respuesta considerado como referencia.
   #                     Necesario cuando la métrica es f1 o kappa.
-  #   verbose: mostrar información del proceso por pantalla.
+  # verbose: mostrar información del proceso por pantalla.
 
-  # Retorno:
-  #   fitness del individuo obtenido por validación cruzada empleando
-  #   random forest como modelo.
+  # RETORNO
+  # ============================================================================
+  # fitness del individuo obtenido por validación cruzada empleando
+  # random forest como modelo.
 
   # Repartición de las observaciones para la validación cruzada (CV).
   set.seed(seed)
@@ -111,49 +117,64 @@ calcular_fitness_individuo_rf <- function(x, y, cv, metrica = NULL,
       if (is.null(metrica) | metrica == "accuracy") {
         # Si y es factor (clasificación), el fitness por defecto es el accuracy.
         metrica <- "accuracy"
-        accuracy <- mean(as.character(predicciones) == as.character(y[indices_cv == i]))
+        accuracy <- MLmetrics::Accuracy(
+                       y_pred = predicciones,
+                       y_true = y[indices_cv == i]
+                    )
         fitness_cv[i] <- accuracy
       } else if (metrica == "kappa") {
         if (is.null(nivel_referencia)) {
           stop("Para la métrica kappa es necesario indicar el nivel de referencia.")
         } else {
-          confmat <- caret::confusionMatrix(table(predicciones, y[indices_cv == i]),
-                                            positive = nivel_referencia)
-          kappa <- confmat$overall["Kappa"]
+          mat_confusion <- caret::confusionMatrix(table(predicciones, y[indices_cv == i]),
+                                                  positive = nivel_referencia
+          )
+          kappa <- mat_confusion$overall["Kappa"]
           fitness_cv[i] <- kappa
         }
       } else if (metrica == "f1") {
         if (is.null(nivel_referencia)) {
           stop("Para la métrica f1 es necesario indicar el nivel de referencia.")
-        } else if(sum(predicciones == nivel_referencia) == 0){
-          warning(paste("Ninguna predicción del nivel de referencia.",
-                     "El valor F1 no puede ser calculado."))
+        } else if (sum(predicciones == nivel_referencia) < 1) {
+          print(paste(
+            "Ningún valor predicho ha sido el nivel de referencia,",
+            "por lo tanto, el valor de precisión no puede ser calculado",
+            "y tampoco la metrica F1."))
         } else {
-          f1 <- caret::F_meas(
-            data = predicciones,
-            reference = y[indices_cv == i],
-            relevant = nivel_referencia
+          f1 <- MLmetrics::F1_Score(
+                  y_true = y[indices_cv == i],
+                  y_pred = predicciones,
+                  positive = nivel_referencia
           )
           fitness_cv[i] <- f1
         }
       }
     }
+    
+    if (is.na(fitness_cv[i])) {
+      print(paste("En la partición", i, "de CV, fitness del individuo no",
+                  "ha podido ser calculado."))
+      print("Valores reales:")
+      print(y[indices_cv == i])
+      print("Valores predichos:")
+      print(predicciones)
+    }
   }
   
   if (any(is.na(fitness_cv))) {
-    warning(paste("En una o más particiones de CV, fitness del individuo no",
-                  "ha podido ser calculado."))
+    warning(paste(
+      "En una o más particiones de CV, el fitness del individuo no",
+      "ha podido ser calculado."))
   }
   
   if (is.na(mean(fitness_cv, na.rm = TRUE))) {
     stop("El fitness del individuo no ha podido ser calculado.")
   }
-
+  
   if (verbose) {
     print(paste(
       "El fitness calculado por CV =", cv, "empleando el",
-      metrica, "es de:", mean(fitness_cv)
-    ))
+      metrica, "es de:", mean(fitness_cv, na.rm = TRUE)))
     cat("\n")
   }
   return(mean(fitness_cv, na.rm = TRUE))
@@ -161,16 +182,19 @@ calcular_fitness_individuo_rf <- function(x, y, cv, metrica = NULL,
 
 
 calcular_fitness_individuo_lm <- function(x, y, cv, seed = 123, verbose = TRUE, ...) {
-  # Argumentos
-  #   x:       matriz de predictores.
-  #   y:       variable respuesta.
-  #   cv:      número de particiones de validación cruzada.
-  #   seed:    semilla para garantizar reproducibilidad en el proceso de CV.
-  #   verbose: mostrar información del proceso por pantalla.
+  
+  # ARGUMENTOS
+  # ============================================================================
+  # x:       matriz de predictores.
+  # y:       variable respuesta.
+  # cv:      número de particiones de validación cruzada.
+  # seed:    semilla para garantizar reproducibilidad en el proceso de CV.
+  # verbose: mostrar información del proceso por pantalla.
 
-  # Retorno:
-  #   fitness del individuo obtenido por validación cruzada empleando MSE como
-  #   métrica y regresión lineal como tipo de modelo.
+  # RETORNO
+  # ============================================================================
+  # Fitness del individuo obtenido por validación cruzada empleando MSE como
+  # métrica y regresión lineal como tipo de modelo.
 
   # Repartición de las observaciones para la validación cruzada (CV).
   set.seed(seed)
@@ -181,20 +205,18 @@ calcular_fitness_individuo_lm <- function(x, y, cv, seed = 123, verbose = TRUE, 
   fitness_cv <- rep(NA, times = cv)
 
   for (i in 1:cv) {
-    set.seed(seed)
     datos_modelo <- as.data.frame(cbind(x[indices_cv != i, , drop = FALSE],
-      y = y[indices_cv != i]
-    ))
+                                  y = y[indices_cv != i]))
     modelo <- lm(
       formula = y ~ .,
       data = datos_modelo
     )
 
     predicciones <- predict(modelo,
-      newdata = as.data.frame(
-        x[indices_cv == i, , drop = FALSE]
-      )
-    )
+                            newdata = as.data.frame(
+                                        x[indices_cv == i, , drop = FALSE]
+                                      )
+                            )
     residuos <- predicciones - y[indices_cv == i]
     metrica <- "-MSE"
     fitness_cv[i] <- -(mean(residuos^2))
@@ -212,7 +234,7 @@ calcular_fitness_individuo_lm <- function(x, y, cv, seed = 123, verbose = TRUE, 
   if (verbose) {
     print(paste(
       "El fitness calculado por CV =", cv, "empleando el",
-      metrica, "es de:", mean(fitness_cv)
+      metrica, "es de:", mean(fitness_cv, na.rm = TRUE)
     ))
     cat("\n")
   }
@@ -222,134 +244,156 @@ calcular_fitness_individuo_lm <- function(x, y, cv, seed = 123, verbose = TRUE, 
 calcular_fitness_individuo_glm <- function(x, y, cv, metrica = NULL,
                                            nivel_referencia = NULL,
                                            seed = 123, verbose = TRUE, ...) {
-  # Argumentos
-  #   x:       matriz de predictores.
-  #   y:       variable respuesta.
-  #   cv:      número de particiones de validación cruzada.
-  #   seed:    semilla para garantizar reproducibilidad en el proceso de CV.
-  #   metrica: métrica utilizad apara calcular el fitness. Por defecto es el -MSE
-  #            para regresión y Accuracy para clasificación. En el caso de clasificación
-  #            binaria, se acepta también f1 y kappa.
-  #   nivel_referencia: valor de la variable respuesta considerado como referencia.
+  # ARGUMENTOS
+  # ============================================================================
+  # x:       matriz de predictores.
+  # y:       variable respuesta.
+  # cv:      número de particiones de validación cruzada.
+  # seed:    semilla para garantizar reproducibilidad en el proceso de CV.
+  # metrica: métrica utilizad apara calcular el fitness. Por defecto es el -MSE
+  #          para regresión y Accuracy para clasificación. En el caso de clasificación
+  #          binaria, se acepta también f1 y kappa.
+  # nivel_referencia: valor de la variable respuesta considerado como referencia.
   #                     Necesario cuando la métrica es f1 o kappa.
-  #   verbose: mostrar información del proceso por pantalla.
-  
-  # Retorno:
-  #   fitness del individuo obtenido por validación cruzada empleando
-  #   random forest como modelo.
-  
+  # verbose: mostrar información del proceso por pantalla.
+
+  # RETORNO
+  # ============================================================================
+  # Fitness del individuo obtenido por validación cruzada empleando glm como modelo.
+
   # Comprobaciones
   if (is.numeric(y)) {
     stop("El modelo glm solo puede emplearse para problemas de clasificación binaria.")
   }
-  
+
   if (is.character(y)) {
     y <- as.factor(y)
   }
-  
+
   if (length(levels(y)) != 2) {
     stop("El modelo glm solo puede emplearse para problemas de clasificación binaria.")
   }
-  
-  
+
+
   # Repartición de las observaciones para la validación cruzada (CV).
   set.seed(seed)
-  #indices_cv <- sample(x = 1:cv, size = nrow(x), replace = TRUE)
   indices_cv <- caret::createFolds(y = y, k = cv, list = FALSE)
-  
+
   # Vector para almacenar el fitness de cada iteración CV.
   fitness_cv <- rep(NA, times = cv)
-  
+
   for (i in 1:cv) {
-    
-    modelo <- caret::train(
-      x = x[indices_cv != i, , drop = FALSE],
-      y = y[indices_cv != i],
-      method = "glm",
+    datos_modelo <- as.data.frame(cbind(x[indices_cv != i, , drop = FALSE],
+                                  y = y[indices_cv != i]))
+    modelo <- glm(
+      formula = y ~ .,
       family = "binomial",
-      trControl = trainControl(method = "none")
+      data = datos_modelo
     )
-    
+
     predicciones <- predict(
-      modelo,
-      newdata = as.data.frame(
-        x[indices_cv == i, , drop = FALSE]
-      ),
-      type = "raw"       
-    )
-    
+                      modelo,
+                      newdata = as.data.frame(
+                                  x[indices_cv == i, , drop = FALSE]
+                                ),
+                      type = "response"
+                    )
+    predicciones <- unname(predicciones)
+    predicciones <- ifelse(predicciones < 0.5, levels(y)[1], levels(y)[2])
+    predicciones <- factor(x = predicciones, levels = levels(y))
+
     if (is.null(metrica) | metrica == "accuracy") {
       # Si y es factor (clasificación), el fitness por defecto es el accuracy.
       metrica <- "accuracy"
-      accuracy <- mean(as.character(predicciones) == as.character(y[indices_cv == i]))
+      accuracy <- MLmetrics::Accuracy(
+                              y_pred = predicciones,
+                              y_true = y[indices_cv == i]
+                            )
       fitness_cv[i] <- accuracy
     } else if (metrica == "kappa") {
       if (is.null(nivel_referencia)) {
         stop("Para la métrica kappa es necesario indicar el nivel de referencia.")
       } else {
-        confmat <- caret::confusionMatrix(table(predicciones, y[indices_cv == i]),
-                                          positive = nivel_referencia)
-        kappa <- confmat$overall["Kappa"]
+        mat_confusion <- caret::confusionMatrix(table(predicciones, y[indices_cv == i]),
+                                                positive = nivel_referencia
+                                              )
+        kappa <- mat_confusion$overall["Kappa"]
         fitness_cv[i] <- kappa
       }
     } else if (metrica == "f1") {
       if (is.null(nivel_referencia)) {
         stop("Para la métrica f1 es necesario indicar el nivel de referencia.")
-      } else if(sum(predicciones == nivel_referencia) == 0){
-        warning(paste("Ninguna predicción del nivel de referencia.",
-                      "El valor F1 no puede ser calculado."))
+      } else if (sum(predicciones == nivel_referencia) < 1) {
+        print(paste(
+          "Ningún valor predicho ha sido el nivel de referencia,",
+          "por lo tanto, el valor de precisión no puede ser calculado",
+          "y tampoco la metrica F1."))
       } else {
-        f1 <- caret::F_meas(
-          data = predicciones,
-          reference = y[indices_cv == i],
-          relevant = nivel_referencia
+        f1 <- MLmetrics::F1_Score(
+                  y_true = y[indices_cv == i],
+                  y_pred = predicciones,
+                  positive = nivel_referencia
         )
         fitness_cv[i] <- f1
       }
     }
+
+    if (is.na(fitness_cv[i])) {
+      print(paste(
+        "En la partición", i, "de CV, fitness del individuo no",
+        "ha podido ser calculado."))
+      print("Valores reales:")
+      print(y[indices_cv == i])
+      print("Valores predichos:")
+      print(predicciones)
+      cat("\n")
+    }
   }
-  
+
   if (any(is.na(fitness_cv))) {
-    warning(paste("En una o más particiones de CV, fitness del individuo no",
-                  "ha podido ser calculado."))
+    warning(paste(
+      "En una o más particiones de CV, el fitness del individuo no",
+      "ha podido ser calculado."))
   }
-  
+
   if (is.na(mean(fitness_cv, na.rm = TRUE))) {
     stop("El fitness del individuo no ha podido ser calculado.")
   }
-  
+
   if (verbose) {
     print(paste(
       "El fitness calculado por CV =", cv, "empleando el",
-      metrica, "es de:", mean(fitness_cv)
-    ))
+      metrica, "es de:", mean(fitness_cv, na.rm = TRUE)))
     cat("\n")
   }
   return(mean(fitness_cv, na.rm = TRUE))
 }
 
+
 calcular_fitness_poblacion <- function(poblacion, x, y, cv, seed = 123,
                                        modelo = "rf", metrica = NULL,
                                        nivel_referencia = NULL, verbose = TRUE) {
-  # Argumentos
-  #   poblacion: matriz que representa la población de individuos.
-  #   x:         matriz de predictores.
-  #   y:         variable respuesta.
-  #   cv:        número de particiones de validación cruzada.
-  #   seed:      semilla para garantizar reproducibilidad en el proceso de CV.
-  #   verbose:   mostrar información del proceso por pantalla.
-  #   modelo:    tipo de modelo empleado para calcular el fitness. Puede ser
-  #              lm, glm o rf.
-  #   metrica: métrica utilizad apara calcular el fitness. Por defecto es el -MSE
-  #            para regresión y accuracy para clasificación. En el caso de clasificación
-  #            binaria, se acepta también f1.
-  #   nivel_referencia: valor de la variable respuesta considerado como referencia.
-  #                     Necesario cuando la métrica es f1 o kappa.
+  # ARGUMENTOS
+  # ============================================================================
+  # poblacion: matriz que representa la población de individuos.
+  # x:         matriz de predictores.
+  # y:         variable respuesta.
+  # cv:        número de particiones de validación cruzada.
+  # seed:      semilla para garantizar reproducibilidad en el proceso de CV.
+  # verbose:   mostrar información del proceso por pantalla.
+  # modelo:    tipo de modelo empleado para calcular el fitness. Puede ser
+  #            lm, glm o rf.
+  # metrica: métrica utilizad apara calcular el fitness. Por defecto es el -MSE
+  #          para regresión y accuracy para clasificación. En el caso de clasificación
+  #          binaria, se acepta también f1.
+  # nivel_referencia: valor de la variable respuesta considerado como referencia.
+  #                   Necesario cuando la métrica es f1 o kappa.
 
-  # Retorno:
-  #   vector con el fitness de todos los individuos de la población, obtenido por
-  #   validación cruzada. El orden de los valores se corresponde con el orden de
-  #   las filas de la matriz población.
+  # RETORNO
+  # ============================================================================
+  # Vector con el fitness de todos los individuos de la población, obtenido por
+  # validación cruzada. El orden de los valores se corresponde con el orden de
+  # las filas de la matriz población.
 
   # Vector donde almacenar el fitness de cada individuo.
   fitness_poblacion <- rep(NA, times = nrow(poblacion))
@@ -404,14 +448,16 @@ calcular_fitness_poblacion <- function(poblacion, x, y, cv, seed = 123,
 seleccionar_individuo <- function(vector_fitness, metrica,
                                   metodo_seleccion = "tournament",
                                   verbose = TRUE) {
-  # Argumentos:
-  #   vector_fitness:   un vector con el fitness de cada individuo.
-  #   metrica:          métrica empleada para calcular el fitness.
-  #   metodo_seleccion: método para establecer la probabilidad de selección.
+  # ARGUMENTOS
+  # ============================================================================
+  # vector_fitness:   un vector con el fitness de cada individuo.
+  # metrica:          métrica empleada para calcular el fitness.
+  # metodo_seleccion: método para establecer la probabilidad de selección.
   #                     Puede ser "ruleta", "rank", o "tournament".
 
-  # Retorno:
-  #   El índice que ocupa el individuo seleccionado.
+  # RETORNO
+  # ============================================================================
+  # El índice que ocupa el individuo seleccionado.
 
 
   # Selección del individuo
@@ -476,11 +522,13 @@ cruzar_individuos <- function(parental_1, parental_2,
   # Esta función devuelve un individuo resultado de cruzar dos individuos
   # parentales con el método de cruzamiento uniforme.
   #
-  # Argumentos:
-  #   parental_1: vector que representa a un individuo.
-  #   parental_2: vector que representa a un individuo.
+  # ARGUMENTOS
+  # ============================================================================
+  # parental_1: vector que representa a un individuo.
+  # parental_2: vector que representa a un individuo.
 
-  # Retorno:
+  # RETORNO
+  # ============================================================================
   # Un vector que representa a un nuevo individuo.
 
   # Para crear el nuevo individuo, se emplea el método de cruzamiento uniforme,
@@ -522,11 +570,14 @@ cruzar_individuos <- function(parental_1, parental_2,
 
 
 mutar_individuo <- function(individuo, prob_mut = 0.01) {
-  # Argumentos:
-  #   individuo: vector que representa a un individuo.
-  #   prob_mut:  probabilidad que tiene cada posición del vector de mutar.
+  
+  # ARGUMENTOS
+  # ============================================================================
+  # individuo: vector que representa a un individuo.
+  # prob_mut:  probabilidad que tiene cada posición del vector de mutar.
 
-  # Retorno:
+  # RETORNO
+  # ============================================================================
   # Un vector que representa al individuo tras someterse a las mutaciones.
 
   # Selección de posiciones a mutar.
@@ -544,25 +595,27 @@ calcular_fitness_poblacion_paral <- function(poblacion, x, y, cv, seed = 123,
                                              modelo = "rf", metrica = NULL,
                                              nivel_referencia = NULL,
                                              verbose = TRUE) {
-  # Argumentos
-  #   poblacion: matriz que representa la población de individuos.
-  #   x:         matriz de predictores.
-  #   y:         variable respuesta.
-  #   cv:        número de particiones de validación cruzada.
-  #   seed:      semilla para garantizar reproducibilidad en el proceso de CV.
-  #   verbose:   mostrar información del proceso por pantalla.
-  #   modelo:    tipo de modelo empleado para calcular el fitness. Puede ser
-  #              lm, glm o rf.
-  #   metrica:   métrica utilizad apara calcular el fitness. Por defecto es el
-  #             -MSE para regresión y Accuracy para clasificación. En el caso de
-  #              clasificación binaria, se acepta también f1.
-  #   nivel_referencia: valor de la variable respuesta considerado como referencia.
-  #                     Necesario cuando la métrica es f1 o kappa.
+  # ARGUMENTOS
+  # ============================================================================
+  # poblacion: matriz que representa la población de individuos.
+  # x:         matriz de predictores.
+  # y:         variable respuesta.
+  # cv:        número de particiones de validación cruzada.
+  # seed:      semilla para garantizar reproducibilidad en el proceso de CV.
+  # verbose:   mostrar información del proceso por pantalla.
+  # modelo:    tipo de modelo empleado para calcular el fitness. Puede ser
+  #            lm, glm o rf.
+  # metrica:   métrica utilizad apara calcular el fitness. Por defecto es el
+  #            -MSE para regresión y Accuracy para clasificación. En el caso de
+  #            clasificación binaria, se acepta también f1.
+  # nivel_referencia: valor de la variable respuesta considerado como referencia.
+  #                   Necesario cuando la métrica es f1 o kappa.
 
-  # Retorno:
-  #   vector con el fitness de todos los individuos de la población, obtenido por
-  #   validación cruzada. El orden de los valores se corresponde con el orden de
-  #   las filas de la matriz población.
+  # RETORNO
+  # ============================================================================:
+  #  Vector con el fitness de todos los individuos de la población, obtenido por
+  #  validación cruzada. El orden de los valores se corresponde con el orden de
+  #  las filas de la matriz población.
 
   # Tipo de modelo utilizado para calcular el fitness.
   if (modelo == "lm") {
@@ -898,7 +951,7 @@ seleccion <- selecionar_predictores(
   elitismo = 0.01,
   prob_mut = 0.01,
   metodo_seleccion = "tournament",
-  modelo = "glm",
+  modelo = "rf",
   metrica = "accuracy",
   nivel_referencia = "1",
   cv = 5,
@@ -906,7 +959,7 @@ seleccion <- selecionar_predictores(
   rondas_parada = NULL,
   tolerancia_parada = NULL,
   paralelizado = FALSE,
-  verbose = TRUE
+  verbose = FALSE
 )
 
 seleccion$mejor_individuo_global
