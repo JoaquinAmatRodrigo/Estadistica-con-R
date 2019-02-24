@@ -788,16 +788,18 @@ optimizar_ga <- function(
 ################################################################################
 
 # Función objetivo a optimizar.
-funcion <- function(x, y) {
-  sin(y) * exp(1 - cos(x))^2 + cos(x) * exp(1 - sin(y))^2 + (x - y)^2
+# Mínimo global en la región −10<=x1<=0 −6.5<=x2<=0 en f(−3.1302468,−1.5821422).
+
+funcion <- function(x1, x2){
+  sin(x2)*exp(1-cos(x1))^2 + cos(x1)*exp(1-sin(x2))^2 + (x1-x2)^2
 }
 
 resultados_ga <- optimizar_ga(
   funcion_objetivo = funcion,
   n_variables = 2,
   optimizacion = "minimizar",
-  limite_inf = c(-10, -10),
-  limite_sup = c(10, 10),
+  limite_inf = c(-10, -6.5),
+  limite_sup = c(0, 0),
   n_poblacion = 150,
   n_generaciones = 500,
   elitismo = 0.01,
