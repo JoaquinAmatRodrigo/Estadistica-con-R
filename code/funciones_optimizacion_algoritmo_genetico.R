@@ -32,25 +32,19 @@ crear_poblacion <- function(n_poblacion, n_variables, limite_inf = NULL,
       "Si para alguna variable no se quiere límite, emplear NA.",
       "Ejemplo: lim_sup = c(10, NA, 10)"
     ))
-  }
-  
-  if (!is.null(limite_sup) & length(limite_sup) != n_variables) {
+  } else if (!is.null(limite_sup) & length(limite_sup) != n_variables) {
     stop(paste(
       "limite_sup debe tener un valor por cada variable.",
       "Si para alguna variable no se quiere límite, emplear NA.",
       "Ejemplo: lim_sup = c(10, NA, 10)"
     ))
-  }
-  
-  if (is.null(limite_sup) | is.null(limite_inf)) {
+  } else if (is.null(limite_sup) | is.null(limite_inf)) {
     warning(paste(
       "Es altamente recomendable indicar los límites dentro de los",
       "cuales debe buscarse la solución de cada variable.",
       "Por defecto se emplea [-10^3, 10^3]."
     ))
-  }
-  
-  if (any(any(is.na(limite_sup)), any(is.na(limite_inf)))) {
+  } else if (any(c(is.na(limite_sup), is.na(limite_inf)))) {
     warning(paste(
       "Los límites empleados por defecto cuando no se han definido son:",
       " [-10^3, 10^3]."
@@ -556,10 +550,7 @@ optimizar_ga <- function(
     ))
   }
   
-  if (any(
-    is.null(limite_sup), is.null(limite_inf), any(is.na(limite_sup)),
-    any(is.na(limite_inf))
-  )) {
+  if (any(c(is.na(limite_sup), is.na(limite_inf)))) {
     warning(paste(
       "Los límites empleados por defecto cuando no se han definido son:",
       " [-10^3, 10^3]."
