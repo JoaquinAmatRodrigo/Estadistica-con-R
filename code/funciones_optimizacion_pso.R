@@ -1,5 +1,5 @@
 ################################################################################
-#                FUNCIONES OPTIMIZACION CON ALGORITMO PSO                     #
+#                FUNCIONES OPTIMIZACIÓN CON ALGORITMO PSO                     #
 ################################################################################
 
 crear_particula <- function(n_variables,
