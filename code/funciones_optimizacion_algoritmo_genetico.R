@@ -1,5 +1,8 @@
 ################################################################################
 #       FUNCIONES OPTIMIZACION CON ALGORITMO GENÉTICO Y NELDER-MEAD            #
+#                                                                              #
+# This work by Joaquín Amat Rodrigo is licensed under a Creative Commons       #
+# Attribution 4.0 International License.                                       #
 ################################################################################
 
 crear_poblacion <- function(n_poblacion, n_variables, limite_inf = NULL,
