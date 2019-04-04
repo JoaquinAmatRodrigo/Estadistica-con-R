@@ -1,5 +1,8 @@
 ################################################################################
 #              FUNCIONES PARA REPRESENTAR GRÁFICOS ICE CON GGPLOT2             #
+#                                                                              #
+# This work by Joaquín Amat Rodrigo is licensed under a Creative Commons       #
+# Attribution 4.0 International License.                                       #
 ################################################################################
 
 
