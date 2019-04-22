@@ -2,6 +2,8 @@
 
 Este repositorio contiene apuntes personales sobre estadística, bioestadística, *machine learning* y lenguaje de programación R. Para ver los documentos en formato web (html) visitar [Rpubs](https://rpubs.com/Joaquin_AR).
 
++ [Bibliografía estadística y programación en R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/HTML_format/49_Optimizacion_con_particle_swarm.html)
+
 + [Bibliografía estadística y programación en R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/0_0_Bibliograf%C3%ADa_estad%C3%ADstica_y_programaci%C3%B3n_en_R.pdf)
 
 + [Optimización con enjambre de partículas (Particle Swarm Optimization PSO)](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/49_Optimizacion_con_particle_swarm.pdf)
