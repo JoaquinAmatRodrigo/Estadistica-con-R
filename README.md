@@ -1,6 +1,6 @@
 # Estadística y Machine Learning con R
 
-Este repositorio contiene apuntes personales sobre estadística, bioestadística, *machine learning* y lenguaje de programación R. Para ver los documentos en formato web (html) visitar [Rpubs](https://rpubs.com/Joaquin_AR).
+Este repositorio contiene apuntes personales sobre estadística, bioestadística, *machine learning* y lenguaje de programación R. Para ver los documentos en formato web (html) visitar [Rpubs](https://rpubs.com/Joaquin_AR) o [cienciadedatos](https://cienciadedatos.net).
 
 + [Bibliografía estadística y programación en R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/0_0_Bibliograf%C3%ADa_estad%C3%ADstica_y_programaci%C3%B3n_en_R.pdf)
 
