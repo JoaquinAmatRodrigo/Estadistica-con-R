@@ -2,8 +2,6 @@
 
 Este repositorio contiene apuntes personales sobre estadística, bioestadística, *machine learning* y lenguaje de programación R. Para ver los documentos en formato web (html) visitar [Rpubs](https://rpubs.com/Joaquin_AR) o [cienciadedatos.net](https://cienciadedatos.net).
 
-+ [Bibliografía estadística y programación en R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/0_0_Bibliograf%C3%ADa_estad%C3%ADstica_y_programaci%C3%B3n_en_R.pdf)
-
 + [Optimización con enjambre de partículas (Particle Swarm Optimization PSO)](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/49_Optimizacion_con_particle_swarm.pdf)
 
 + [Optimización con algoritmo genético y Nelder-Mead](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/48_Optimizacion_con_algoritmo_genetico.pdf)
@@ -109,6 +107,8 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 
 
 + [Análisis de normalidad mediante gráficos y contrastes de hipótesis](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/8_An%C3%A1lisis_de__Normalidad_gr%C3%A1ficos_y_contrastes_de_hip%C3%B3tesis.pdf)
+
++ [Bibliografía estadística y programación en R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/0_0_Bibliograf%C3%ADa_estad%C3%ADstica_y_programaci%C3%B3n_en_R.pdf)
 
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Joaquín Amat Rodrigo</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
