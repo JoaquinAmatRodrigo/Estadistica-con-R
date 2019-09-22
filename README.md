@@ -43,6 +43,7 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 
 + [Máquinas de Vector Soporte (Support Vector Machines)](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/34_Maquinas_de_Vector_Soporte_Support_Vector_Machines.pdf)
 
++ [Algoritmo Perceptron](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/50_Algoritmo_Perceptron.pdf)
 
 + [Árboles de predicción: bagging, random forest, boosting y C5.0](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/33_Arboles_de_predicci%C3%B3n__tree-based%2C_bagging%2C_random_forest%2C_boosting.pdf)
 
