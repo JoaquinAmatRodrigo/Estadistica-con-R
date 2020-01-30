@@ -7,7 +7,7 @@
 
 library(foreach)
 library(doParallel)
-library(randomForest)
+library(ranger)
 library(caret)
 library(MLmetrics)
 
@@ -197,12 +197,28 @@ calcular_fitness_individuo_rf <- function(x,
   
   for (i in 1:cv) {
     set.seed(seed)
-    modelo <- randomForest::randomForest(
-                x = x[indices_cv != i, , drop = FALSE],
+    # modelo <- randomForest::randomForest(
+    #             x = x[indices_cv != i, , drop = FALSE],
+    #             y = y[indices_cv != i],
+    #             ntree = n_tree,
+    #             importance = FALSE,
+    #             localImp = FALSE
+    #           )
+    # predicciones <- predict(modelo, data = x[indices_cv == i, , drop = FALSE])
+    
+    modelo <- ranger::ranger(
+                x = as.data.frame(x[indices_cv != i, , drop = FALSE]),
                 y = y[indices_cv != i],
-                ntree = n_tree
+                num.trees = n_tree,
+                importance = "none",
+                keep.inbag = FALSE,
+                oob.error = FALSE
               )
-    predicciones <- predict(modelo, newdata = x[indices_cv == i, , drop = FALSE])
+    predicciones <- predict(
+                      modelo,
+                      data = as.data.frame(x[indices_cv == i, , drop = FALSE])
+                    )
+    predicciones <- predicciones$predictions
     
     if (metrica == "-mse") {
       residuos <- predicciones - y[indices_cv == i]
@@ -1458,7 +1474,7 @@ seleccionar_predictores_ga <- function(
   # ----------------------------------------------------------------------------
   library(foreach)
   library(doParallel)
-  library(randomForest)
+  library(ranger)
   library(caret)
   library(MLmetrics)
   
