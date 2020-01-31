@@ -560,12 +560,28 @@ Individuo <- R6Class("Individuo",
      
      for (i in 1:cv) {
        set.seed(seed)
-       modelo <- randomForest::randomForest(
-         x = x[indices_cv != i, self$secuencia, drop = FALSE],
+       # modelo <- randomForest::randomForest(
+       #   x = x[indices_cv != i, self$secuencia, drop = FALSE],
+       #   y = y[indices_cv != i],
+       #   ntree = n_tree,
+       #   importance = FALSE,
+       #   localImp = FALSE
+       # )
+       # predicciones <- predict(modelo, newdata = x[indices_cv == i, , drop = FALSE])
+       
+       modelo <- ranger::ranger(
+         x = as.data.frame(x[indices_cv != i, self$secuencia, drop = FALSE]),
          y = y[indices_cv != i],
-         ntree = n_tree
+         num.trees = n_tree,
+         importance = "none",
+         keep.inbag = FALSE,
+         oob.error = FALSE
        )
-       predicciones <- predict(modelo, newdata = x[indices_cv == i, , drop = FALSE])
+       predicciones <- predict(
+         modelo,
+         data = as.data.frame(x[indices_cv == i, , drop = FALSE])
+       )
+       predicciones <- predicciones$predictions
        
        if (self$metrica == "-mse") {
          residuos <- predicciones - y[indices_cv == i]
@@ -1154,6 +1170,9 @@ Poblacion <- R6Class("Poblacion",
   # 
   # diferencia_abs: vector
   #     diferencia absoluta entre el mejor fitness de generaciones consecutivas.
+  #
+  # porcentaje_mejora: vector
+  #   porcentaje de mejora entre el mejor individuo de cada generación.
   # 
   # resultados_df: dataframe
   #     dataframe con la información del mejor fitness y secuencia encontrada
@@ -1247,6 +1266,8 @@ Poblacion <- R6Class("Poblacion",
    historico_mejor_valor_metrica = vector(mode = "numeric"),
    # Diferencia absoluta entre el mejor fitness de generaciones consecutivas
    diferencia_abs = vector(mode = "numeric"),
+   # Porcentaje de mejora entre generaciones consecutivas
+   porcentaje_mejora = vector(mode = "numeric"),
    # data.frame con la información del mejor fitness y valor de variables
    # encontrado en cada generación, así como la diferencia respecto a la 
    # generación anterior.
@@ -2370,6 +2391,7 @@ Poblacion <- R6Class("Poblacion",
      self$historico_mejor_fitness       <- rep(NA, n_generaciones)
      self$historico_mejor_valor_metrica <- rep(NA, n_generaciones)
      self$diferencia_abs                <- rep(NA, n_generaciones)
+     self$porcentaje_mejora             <- rep(NA, n_generaciones)
      
      # ITERACIONES (GENERACIONES)
      # ----------------------------------------------------------------------
@@ -2441,18 +2463,35 @@ Poblacion <- R6Class("Poblacion",
          self$diferencia_abs[i] <- diferencia
        }
        
+       # SE CALCULA LA MEJORA RESPECTO A LA GENERACIÓN ANTERIOR
+       # -----------------------------------------------------------------------
+       # La mejora solo puede calcularse a partir de la segunda generación.
+       if (i == 1) {
+         self$porcentaje_mejora[i] <- NA
+       }else if(self$metrica %in% c("f1", "kappa", "accuracy")) {
+          # Si el fitness se corresponde con una métrica con escala [0, +inf)
+          self$porcentaje_mejora[[i]] <- (self$historico_mejor_fitness[[i]]-
+                                          self$historico_mejor_fitness[[i-1]]) /
+                                          self$historico_mejor_fitness[[i-1]]
+       }else if (self$metrica %in% c("-mse", "-mae")) {
+          # Si el fitness se corresponde con una métrica con escala (-inf, 0]
+         self$porcentaje_mejora[[i]] <- (self$historico_mejor_fitness[[i-1]]-
+                                         self$historico_mejor_fitness[[i]]) /
+                                         self$historico_mejor_fitness[[i]]
+       }
+       
        # CRITERIO DE PARADA
        # ----------------------------------------------------------------------
        # Si durante las últimas n generaciones, la diferencia absoluta entre
        # mejores individuos no es superior al valor de tolerancia_parada,
        # se detiene el algoritmo y no se crean nuevas generaciones.
        if (parada_temprana && i > rondas_parada) {
-         ultimos_n <- self$diferencia_abs[(i - rondas_parada + 1):i]
+         ultimos_n <- self$porcentaje_mejora[(i - rondas_parada + 1):i]
          if (all(ultimos_n < tolerancia_parada)) {
            print(
              paste("Algoritmo detenido en la generación",  
                    i,
-                   "por falta cambio absoluto mínimo de",
+                   "por falta cambio mejora mínima de",
                    tolerancia_parada, 
                    "durante", 
                    rondas_parada, 
@@ -2486,13 +2525,15 @@ Poblacion <- R6Class("Poblacion",
      self$historico_mejor_fitness       <- self$historico_mejor_fitness[1:i]
      self$historico_mejor_valor_metrica <- self$historico_mejor_valor_metrica[1:i]
      self$diferencia_abs                <- self$diferencia_abs[1:i]
+     self$porcentaje_mejora             <- self$porcentaje_mejora[1:i]
      
      self$resultados_df <- tibble:::tibble(
        "mejor_fitness"            = self$historico_mejor_fitness,
        "mejor_valor_metrica"      = self$historico_mejor_valor_metrica,
        "mejor_secuencia"          = self$historico_mejor_secuencia,
        "indice_mejor_predictores" = self$historico_mejor_predictores,
-       "diferencia_abs"           = self$diferencia_abs
+       "diferencia_abs"           = self$diferencia_abs,
+       "porcentaje_mejora"        = self$porcentaje_mejora
      )
      self$resultados_df$generacion <- seq_len(nrow(self$resultados_df))
      
@@ -2581,6 +2622,9 @@ Poblacion <- R6Class("Poblacion",
 ################################################################################
 #                                 EJEMPLOS                                     #
 ################################################################################
+#
+# # CLASIFICACIÓN
+#
 # data("iris")
 # iris <- iris[iris$Species != "setosa", ]
 # iris$Species <- as.character(iris$Species)
@@ -2604,59 +2648,62 @@ Poblacion <- R6Class("Poblacion",
 # individuo
 # 
 # 
-# 
-# library(mlbench)
-# library(dplyr)
-# 
-# set.seed(123)
-# simulacion <- mlbench.friedman1(n = 500, sd = 1)
-# # El objeto simulación es una lista que  contiene una matriz con los 10 predictores y
-# # un vector con la variable respuesta. Se unen todos los datos en un único dataframe.
-# datos           <- as.data.frame(simulacion$x)
-# datos$y         <- simulacion$y
-# colnames(datos) <- c(paste("x", 1:10, sep = ""), "y")
-# datos           <- datos %>% select(y, everything())
-# 
-# n <- 500
-# p <- 20
-# ruido           <- matrix(rnorm(n * p), nrow = n)
-# colnames(ruido) <- paste("x", 11:(10 + p), sep = "")
-# ruido           <- as.data.frame(ruido)
-# datos           <- bind_cols(datos, ruido)
-# 
-# poblacion = Poblacion$new(
-#   n_individuos = 50,
-#   n_variables  = ncol(datos[, -1]),
-#   n_max        = 5,
-#   n_min        = 1,
-#   n_max_estricto = FALSE,
-#   verbose     = FALSE
-# )
-# 
-# poblacion$optimizar(
-#   x                  = datos[, -1],
-#   y                  = datos$y,
-#   cv                 = 5,
-#   modelo             = "randomforest",
-#   n_tree             = 50,
-#   metrica            = "-mse",
-#   n_generaciones     = 20,
-#   metodo_seleccion   = "tournament",
-#   metodo_cruce       = "uniforme",
-#   elitismo           = 0.1,
-#   prob_mut           = 0.1,
-#   parada_temprana    = TRUE,
-#   rondas_parada      = 5,
-#   tolerancia_parada  = 0.01,
-#   verbose            = TRUE,
-#   verbose_nueva_generacion = FALSE,
-#   verbose_seleccion        = FALSE,
-#   verbose_cruce            = FALSE,
-#   verbose_mutacion         = FALSE,
-#   verbose_evaluacion       = FALSE
-# )
-# 
-# poblacion$plot_evolucion_fitness()
-# 
-# poblacion$plot_frecuencia_seleccion(nombre_predictores = TRUE,
-#                                     x = datos[, -1])
+# REGRESIÓN
+
+library(mlbench)
+library(dplyr)
+
+# Simulación de datos
+set.seed(123)
+simulacion <- mlbench.friedman1(n = 500, sd = 1)
+# El objeto simulación es una lista que  contiene una matriz con los 10 predictores y
+# un vector con la variable respuesta. Se unen todos los datos en un único dataframe.
+datos           <- as.data.frame(simulacion$x)
+datos$y         <- simulacion$y
+colnames(datos) <- c(paste("x", 1:10, sep = ""), "y")
+datos           <- datos %>% select(y, everything())
+
+n <- 500
+p <- 20
+ruido           <- matrix(rnorm(n * p), nrow = n)
+colnames(ruido) <- paste("x", 11:(10 + p), sep = "")
+ruido           <- as.data.frame(ruido)
+datos           <- bind_cols(datos, ruido)
+
+# Selección de predictores
+poblacion = Poblacion$new(
+  n_individuos = 50,
+  n_variables  = ncol(datos[, -1]),
+  n_max        = 5,
+  n_min        = 1,
+  n_max_estricto = FALSE,
+  verbose     = FALSE
+)
+
+poblacion$optimizar(
+  x                  = datos[, -1],
+  y                  = datos$y,
+  cv                 = 5,
+  modelo             = "randomforest",
+  n_tree             = 50,
+  metrica            = "-mse",
+  n_generaciones     = 20,
+  metodo_seleccion   = "tournament",
+  metodo_cruce       = "uniforme",
+  elitismo           = 0.1,
+  prob_mut           = 0.1,
+  parada_temprana    = TRUE,
+  rondas_parada      = 5,
+  tolerancia_parada  = 0.01,
+  verbose            = TRUE,
+  verbose_nueva_generacion = FALSE,
+  verbose_seleccion        = FALSE,
+  verbose_cruce            = FALSE,
+  verbose_mutacion         = FALSE,
+  verbose_evaluacion       = FALSE
+)
+
+poblacion$plot_evolucion_fitness()
+
+poblacion$plot_frecuencia_seleccion(nombre_predictores = TRUE,
+                                    x = datos[, -1])

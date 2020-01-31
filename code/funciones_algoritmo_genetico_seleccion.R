@@ -7,7 +7,7 @@
 
 library(foreach)
 library(doParallel)
-library(ranger)
+library(randomForest)
 library(caret)
 library(MLmetrics)
 
@@ -149,24 +149,20 @@ calcular_fitness_individuo_rf <- function(x,
     if (metrica %in% c("-mse", "-mae") && !is.numeric(y)) {
       stop(
         paste(
-          "La métrica", metrica, "no es valida para problemas de regresión.",
-          "Emplear el -mse o -mae."
-        )
+          "La métrica", metrica, "solo es válida para problemas de regresión.")
       )
     }
     if (metrica %in% c("accuracy", "f1", "kappa") && is.numeric(y)) {
       stop(
         paste(
-          "La métrica", metrica, "no es valida para problemas de clasificación.",
-          "Emplear accuracy, f1, kappa."
-        )
+          "La métrica", metrica, "solo es válida para problemas de clasificación.")
       )
     }
     if (metrica %in% c("f1", "kappa") && length(unique(y)) > 2) {
       stop(
         paste(
-          "La métrica", metrica, "no es valida para problemas de clasificación",
-          "con más de dos clases. Emplear accuracy."
+          "La métrica", metrica, "no es válida para problemas de clasificación",
+          "con más de dos clases."
         )
       )
     }
@@ -207,17 +203,17 @@ calcular_fitness_individuo_rf <- function(x,
     # predicciones <- predict(modelo, data = x[indices_cv == i, , drop = FALSE])
     
     modelo <- ranger::ranger(
-                x = as.data.frame(x[indices_cv != i, , drop = FALSE]),
-                y = y[indices_cv != i],
-                num.trees = n_tree,
-                importance = "none",
-                keep.inbag = FALSE,
-                oob.error = FALSE
-              )
+      x = as.data.frame(x[indices_cv != i, , drop = FALSE]),
+      y = y[indices_cv != i],
+      num.trees = n_tree,
+      importance = "none",
+      keep.inbag = FALSE,
+      oob.error = FALSE
+    )
     predicciones <- predict(
-                      modelo,
-                      data = as.data.frame(x[indices_cv == i, , drop = FALSE])
-                    )
+      modelo,
+      data = as.data.frame(x[indices_cv == i, , drop = FALSE])
+    )
     predicciones <- predicciones$predictions
     
     if (metrica == "-mse") {
@@ -275,7 +271,7 @@ calcular_fitness_individuo_rf <- function(x,
       }
     }
   }
-    
+  
   # COMPROBACIÓN DE LAS MÉTRICAS OBTENIDAS POR CV
   # ------------------------------------------------------------------------
   if (any(is.na(metrica_cv))) {
@@ -304,7 +300,7 @@ calcular_fitness_individuo_rf <- function(x,
     cat("Modelo de evaluación:", modelo, "\n")
     cat("\n")
   }
-
+  
   return(fitness)
 }
 
@@ -361,7 +357,7 @@ calcular_fitness_individuo_lm <- function(x,
     if (!metrica %in% c("-mse", "-mae")) {
       stop(
         paste(
-          "La métrica", metrica, "no es valida para problemas de regresión.",
+          "La métrica", metrica, "no es válida para problemas de regresión.",
           "Emplear el -mse o -mae."
         )
       )
@@ -392,16 +388,16 @@ calcular_fitness_individuo_lm <- function(x,
     )
     
     modelo <- lm(
-                formula = y ~ .,
-                data = datos_modelo
-              )
+      formula = y ~ .,
+      data = datos_modelo
+    )
     
     predicciones <- predict(
-                      modelo,
-                      newdata = as.data.frame(
-                                  x[indices_cv == i, , drop = FALSE]
-                                )
-                    )
+      modelo,
+      newdata = as.data.frame(
+        x[indices_cv == i, , drop = FALSE]
+      )
+    )
     
     residuos <- predicciones - y[indices_cv == i]
     
@@ -538,7 +534,7 @@ calcular_fitness_individuo_glm <- function(x,
     )
   }
   
-
+  
   # REPARTO DE LAS OBSERVACIONES PARA LA VALIDACIÓN CRUZADA (CV)
   # ------------------------------------------------------------------------
   set.seed(seed)
@@ -558,18 +554,18 @@ calcular_fitness_individuo_glm <- function(x,
     )
     
     modelo <- glm(
-                formula = y ~ .,
-                family = "binomial",
-                data = datos_modelo
-              )
+      formula = y ~ .,
+      family = "binomial",
+      data = datos_modelo
+    )
     
     predicciones <- predict(
-                      modelo,
-                      newdata = as.data.frame(
-                                  x[indices_cv == i, , drop = FALSE]
-                                ),
-                      type = "response"
-                    )
+      modelo,
+      newdata = as.data.frame(
+        x[indices_cv == i, , drop = FALSE]
+      ),
+      type = "response"
+    )
     predicciones <- unname(predicciones)
     predicciones <- ifelse(predicciones < 0.5, levels(y)[1], levels(y)[2])
     predicciones <- factor(x = predicciones, levels = levels(y))
@@ -714,7 +710,7 @@ calcular_fitness_poblacion <- function(poblacion,
       )
     )
   }
-
+  
   if (ncol(poblacion) != ncol(x)) {
     stop(
       "n_variables de la población debe ser igual al número de columnas de x."
@@ -733,7 +729,7 @@ calcular_fitness_poblacion <- function(poblacion,
       if (!metrica %in% c("-mse", "-mae")) {
         stop(
           paste(
-            "La métrica", metrica, "no es valida para problemas de regresión.",
+            "La métrica", metrica, "no es válida para problemas de regresión.",
             "Emplear el -mse o -mae."
           )
         )
@@ -788,24 +784,20 @@ calcular_fitness_poblacion <- function(poblacion,
       if (metrica %in% c("-mse", "-mae") && !is.numeric(y)) {
         stop(
           paste(
-            "La métrica", metrica, "no es valida para problemas de regresión.",
-            "Emplear el -mse o -mae."
-          )
+            "La métrica", metrica, "solo es válida para problemas de regresión.")
         )
       }
       if (metrica %in% c("accuracy", "f1", "kappa") && is.numeric(y)) {
         stop(
           paste(
-            "La métrica", metrica, "no es valida para problemas de clasificación.",
-            "Emplear accuracy, f1, kappa."
-          )
+            "La métrica", metrica, "solo es válida para problemas de clasificación.")
         )
       }
       if (metrica %in% c("f1", "kappa") && length(unique(y)) > 2) {
         stop(
           paste(
-            "La métrica", metrica, "no es valida para problemas de clasificación",
-            "con más de dos clases. Emplear accuracy."
+            "La métrica", metrica, "solo es válida para problemas de clasificación,",
+            "binaria."
           )
         )
       }
@@ -835,7 +827,7 @@ calcular_fitness_poblacion <- function(poblacion,
   } else if (modelo == "glm") {
     calcular_fitness_individuo <- calcular_fitness_individuo_glm
   }
-
+  
   # CÁLCULO DEL FITNNES DE CADA INDIVIDUO DE LA POBLACIÓN
   # ----------------------------------------------------------------------------
   # Vector donde almacenar el fitness de cada individuo.
@@ -849,14 +841,14 @@ calcular_fitness_poblacion <- function(poblacion,
     }
     
     fitness_individuo <- calcular_fitness_individuo(
-                          x  = x[, individuo, drop = FALSE],
-                          y  = y,
-                          cv = cv,
-                          metrica = metrica,
-                          nivel_referencia = nivel_referencia,
-                          seed = seed,
-                          verbose = verbose
-                        )
+      x  = x[, individuo, drop = FALSE],
+      y  = y,
+      cv = cv,
+      metrica = metrica,
+      nivel_referencia = nivel_referencia,
+      seed = seed,
+      verbose = verbose
+    )
     fitness_poblacion[i] <- fitness_individuo
   }
   
@@ -865,7 +857,7 @@ calcular_fitness_poblacion <- function(poblacion,
   # Se identifica el mejor individuo de toda la población, el de mayor
   # fitness.
   indice_mejor_individuo <- which.max(fitness_poblacion)
-
+  
   # INFORMACIÓN DEL PROCESO (VERBOSE)
   # ----------------------------------------------------------------------------
   if (verbose) {
@@ -945,7 +937,7 @@ seleccionar_individuo <- function(vector_fitness,
     # Se seleccionan aleatoriamente dos parejas de individuos.
     ind_candidatos_a <- sample(x = 1:length(vector_fitness), size = 2)
     ind_candidatos_b <- sample(x = 1:length(vector_fitness), size = 2)
-      
+    
     # De cada pareja se selecciona el de mayor fitness.
     ind_ganador_a <- ifelse(
       vector_fitness[ind_candidatos_a[1]] > vector_fitness[ind_candidatos_a[2]],
@@ -957,7 +949,7 @@ seleccionar_individuo <- function(vector_fitness,
       ind_candidatos_b[1],
       ind_candidatos_b[2]
     )
-      
+    
     # Se comparan los dos ganadores de cada pareja.
     ind_seleccionado <- ifelse(
       vector_fitness[ind_ganador_a] > vector_fitness[ind_ganador_b],
@@ -1019,10 +1011,10 @@ cruzar_individuos <- function(parental_1,
   if (metodo_cruce == "uniforme") {
     # Se seleccionan aleatoriamente las posiciones que se heredan del parental_1.
     herencia_parent_1 <- sample(
-                            x = c(TRUE, FALSE),
-                            size = length(parental_1),
-                            replace = TRUE
-                          )
+      x = c(TRUE, FALSE),
+      size = length(parental_1),
+      replace = TRUE
+    )
     # El resto de posiciones se heredan del parental_2.
     herencia_parent_2 <- !herencia_parent_1
     
@@ -1030,13 +1022,13 @@ cruzar_individuos <- function(parental_1,
     descendencia[herencia_parent_2] <- parental_2[herencia_parent_2]
   } else {
     punto_cruce <- sample(
-                      x    = 2:length(parental_1),
-                      size = 1
-                   )
+      x    = 2:length(parental_1),
+      size = 1
+    )
     descendencia <- c(
-                      parental_1[1:(punto_cruce - 1)],
-                      parental_2[punto_cruce:length(parental_1)]
-                     )
+      parental_1[1:(punto_cruce - 1)],
+      parental_2[punto_cruce:length(parental_1)]
+    )
   }
   
   # INFORMACIÓN DEL PROCESO (VERBOSE)
@@ -1054,7 +1046,6 @@ cruzar_individuos <- function(parental_1,
     cat(descendencia, "\n")
     cat("\n")
   }
-  
   return(descendencia)
 }
 
@@ -1120,16 +1111,15 @@ forzar_n_max = function(individuo, n_max){
   return(individuo)
 }
 
-
 calcular_fitness_poblacion_paral <- function(poblacion,
-                                       x,
-                                       y,
-                                       modelo,
-                                       cv,
-                                       seed = 123,
-                                       metrica = NULL,
-                                       nivel_referencia = NULL,
-                                       verbose = TRUE) {
+                                             x,
+                                             y,
+                                             modelo,
+                                             cv,
+                                             seed = 123,
+                                             metrica = NULL,
+                                             nivel_referencia = NULL,
+                                             verbose = TRUE) {
   # Parameters
   # ----------
   # poblacion: "matrix" 
@@ -1203,7 +1193,7 @@ calcular_fitness_poblacion_paral <- function(poblacion,
       if (!metrica %in% c("-mse", "-mae")) {
         stop(
           paste(
-            "La métrica", metrica, "no es valida para problemas de regresión.",
+            "La métrica", metrica, "no es válida para problemas de regresión.",
             "Emplear el -mse o -mae."
           )
         )
@@ -1258,24 +1248,20 @@ calcular_fitness_poblacion_paral <- function(poblacion,
       if (metrica %in% c("-mse", "-mae") && !is.numeric(y)) {
         stop(
           paste(
-            "La métrica", metrica, "no es valida para problemas de regresión.",
-            "Emplear el -mse o -mae."
-          )
+            "La métrica", metrica, "solo es válida para problemas de regresión.")
         )
       }
       if (metrica %in% c("accuracy", "f1", "kappa") && is.numeric(y)) {
         stop(
           paste(
-            "La métrica", metrica, "no es valida para problemas de clasificación.",
-            "Emplear accuracy, f1, kappa."
-          )
+            "La métrica", metrica, "solo es válida para problemas de clasificación.")
         )
       }
       if (metrica %in% c("f1", "kappa") && length(unique(y)) > 2) {
         stop(
           paste(
-            "La métrica", metrica, "no es valida para problemas de clasificación",
-            "con más de dos clases. Emplear accuracy."
+            "La métrica", metrica, "solo es válida para problemas de clasificación",
+            "binaria."
           )
         )
       }
@@ -1365,28 +1351,28 @@ calcular_fitness_poblacion_paral <- function(poblacion,
 }
 
 seleccionar_predictores_ga <- function(
-                                   x,
-                                   y,
-                                   n_poblacion       = 20,
-                                   n_generaciones    = 10,
-                                   n_max_predictores = NULL,
-                                   n_max_estricto    = FALSE,
-                                   n_min_predictores = NULL,
-                                   modelo            = "lm",
-                                   cv                = 5,
-                                   metrica           = NULL,
-                                   nivel_referencia  = NULL,
-                                   elitismo          = 0.1,
-                                   prob_mut          = 0.01,
-                                   metodo_seleccion  = "tournament",
-                                   metodo_cruce      = "uniforme",
-                                   n_tree            = 50,
-                                   parada_temprana   = FALSE,
-                                   rondas_parada     = NULL,
-                                   tolerancia_parada = NULL,
-                                   paralelizado      = FALSE,
-                                   verbose           = TRUE,
-                                   ...) {
+  x,
+  y,
+  n_poblacion       = 20,
+  n_generaciones    = 10,
+  n_max_predictores = NULL,
+  n_max_estricto    = FALSE,
+  n_min_predictores = NULL,
+  modelo            = "lm",
+  cv                = 5,
+  metrica           = NULL,
+  nivel_referencia  = NULL,
+  elitismo          = 0.1,
+  prob_mut          = 0.01,
+  metodo_seleccion  = "tournament",
+  metodo_cruce      = "uniforme",
+  n_tree            = 50,
+  parada_temprana   = FALSE,
+  rondas_parada     = NULL,
+  tolerancia_parada = NULL,
+  paralelizado      = FALSE,
+  verbose           = TRUE,
+  ...) {
   # Parameters
   # ----------
   # x: "matrix" o "data.frame" 
@@ -1440,7 +1426,7 @@ seleccionar_predictores_ga <- function(
   #   estrategia de cruzamiento.
   #   
   # parada_temprana: "logical"
-  #   si durante las últimas `rondas_parada` generaciones la diferencia absoluta
+  #   si durante las últimas `rondas_parada` generaciones el porcentaje de mejora
   #   entre mejores individuos no es superior al valor de `tolerancia_parada`,
   #   se detiene el algoritmo y no se crean nuevas generaciones.
   #   
@@ -1449,8 +1435,8 @@ seleccionar_predictores_ga <- function(
   #   la parada temprana.
   #   
   # tolerancia_parada: "numeric"
-  #   valor mínimo que debe tener la diferencia de generaciones consecutivas 
-  #   para considerar que hay cambio.
+  #   porcentaje de mejora que deben las generaciones consecutivas para
+  #   considerar que hay cambio.
   # 
   # n_tree: "integer"
   #   número de árboles del modelo randomforest.       
@@ -1460,13 +1446,14 @@ seleccionar_predictores_ga <- function(
   #              
   # verbose: "logical"
   #   mostrar información del proceso por pantalla.
-
+  
   # Return
   # ----------
   # Objeto "lista" con los resultados del algoritmo genético:
   # fitness: fitness del mejor individuo de cada generación.
   # mejor_individuo: información del mejor individuo de cada generación.
   # diferencia_abs: mejora respecto a la generación anterior.
+  # porcentaje_mejora: porcentaje de mejora entre cada generación.
   # df_resultados: dataframe con los resultados del proceso en cada generación.
   # mejor_individuo_global: mejor individuo encontrado en todo el proceso.
   
@@ -1474,6 +1461,7 @@ seleccionar_predictores_ga <- function(
   # ----------------------------------------------------------------------------
   library(foreach)
   library(doParallel)
+  library(randomForest)
   library(ranger)
   library(caret)
   library(MLmetrics)
@@ -1501,21 +1489,22 @@ seleccionar_predictores_ga <- function(
   
   # ALMACENAMIENTO DE RESULTADOS
   # ----------------------------------------------------------------------------
-  # Por cada generación se almacena el mejor individuo, su fitness, y el porcentaje
-  # de mejora respecto a la última generación.
+  # Por cada generación se almacena el mejor individuo, su fitness, y la mejora
+  # respecto a la última generación.
   resultados_fitness   <- vector(mode = "list", length = n_generaciones)
   resultados_individuo <- vector(mode = "list", length = n_generaciones)
   diferencia_abs       <- vector(mode = "list", length = n_generaciones)
+  porcentaje_mejora    <- vector(mode = "list", length = n_generaciones)
   
   # CREACIÓN DE LA POBLACIÓN INICIAL
   # ----------------------------------------------------------------------------
   poblacion <- crear_poblacion(
-                  n_poblacion = n_poblacion,
-                  n_variables = ncol(x),
-                  n_max       = n_max_predictores,
-                  n_min       = n_min_predictores,
-                  verbose     = verbose
-                )
+    n_poblacion = n_poblacion,
+    n_variables = ncol(x),
+    n_max       = n_max_predictores,
+    n_min       = n_min_predictores,
+    verbose     = verbose
+  )
   
   # ITERACIÓN DE POBLACIONES
   # ----------------------------------------------------------------------------
@@ -1531,28 +1520,28 @@ seleccionar_predictores_ga <- function(
     # --------------------------------------------------------------------------
     if (!paralelizado) {
       fitness_ind_poblacion <- calcular_fitness_poblacion(
-                                  poblacion = poblacion,
-                                  x         = x,
-                                  y         = y,
-                                  modelo    = modelo,
-                                  cv        = cv,
-                                  metrica   = metrica,
-                                  nivel_referencia = nivel_referencia,
-                                  verbose   = verbose
-                                )
+        poblacion = poblacion,
+        x         = x,
+        y         = y,
+        modelo    = modelo,
+        cv        = cv,
+        metrica   = metrica,
+        nivel_referencia = nivel_referencia,
+        verbose   = verbose
+      )
     }
     
     if (paralelizado) {
       fitness_ind_poblacion <- calcular_fitness_poblacion_paral(
-                                  poblacion = poblacion,
-                                  x         = x,
-                                  y         = y,
-                                  modelo    = modelo,
-                                  cv        = cv,
-                                  metrica   = metrica,
-                                  nivel_referencia = nivel_referencia,
-                                  verbose   = verbose
-                              )
+        poblacion = poblacion,
+        x         = x,
+        y         = y,
+        modelo    = modelo,
+        cv        = cv,
+        metrica   = metrica,
+        nivel_referencia = nivel_referencia,
+        verbose   = verbose
+      )
     }
     
     # SE ALMACENA EL MEJOR INDIVIDUO DE LA POBLACIÓN ACTUAL
@@ -1562,20 +1551,37 @@ seleccionar_predictores_ga <- function(
     resultados_fitness[[i]]   <- fitness_mejor_individuo
     resultados_individuo[[i]] <- colnames(x)[mejor_individuo]
     
+    # SE CALCULA LA DIFERENCIA ABSOLUTA RESPECTO A LA GENERACIÓN ANTERIOR
+    # ==========================================================================
+    # La diferencia solo puede calcularse a partir de la segunda generación.
+    if (i > 1) {
+      diferencia_abs[[i]] <- abs(resultados_fitness[[i]]- resultados_fitness[[i-1]])
+    }
+    
     # SE CALCULA LA MEJORA RESPECTO A LA GENERACIÓN ANTERIOR
     # ==========================================================================
     # La mejora solo puede calcularse a partir de la segunda generación.
     if (i > 1) {
-      diferencia_abs[[i]] <- abs(resultados_fitness[[i]]- resultados_fitness[[i-1]])
+      if(metrica %in% c("f1", "kappa", "accuracy")){
+        # Si el fitness se corresponde con una métrica con escala [0, +inf)
+        porcentaje_mejora[[i]] <- (resultados_fitness[[i]]-resultados_fitness[[i-1]]) /
+          resultados_fitness[[i-1]]
+      }
+      
+      if(metrica %in% c("-mse", "-mae")){
+        # Si el fitness se corresponde con una métrica con escala (-inf, 0]
+        porcentaje_mejora[[i]] <- (resultados_fitness[[i-1]]-resultados_fitness[[i]]) /
+          resultados_fitness[[i]]
+      }
     }
     
     # NUEVA POBLACIÓN
     # ==========================================================================
     nueva_poblacion <- matrix(
-                          data = NA,
-                          nrow = nrow(poblacion),
-                          ncol = ncol(poblacion)
-                        )
+      data = NA,
+      nrow = nrow(poblacion),
+      ncol = ncol(poblacion)
+    )
     
     # ELITISMO
     # ==========================================================================
@@ -1597,39 +1603,39 @@ seleccionar_predictores_ga <- function(
     for (j in (n_elitismo + 1):nrow(nueva_poblacion)) {
       # Seleccionar parentales
       indice_parental_1 <- seleccionar_individuo(
-                              vector_fitness   = fitness_ind_poblacion,
-                              metrica          = metrica,
-                              metodo_seleccion = metodo_seleccion,
-                              verbose          = verbose
-                            )
+        vector_fitness   = fitness_ind_poblacion,
+        metrica          = metrica,
+        metodo_seleccion = metodo_seleccion,
+        verbose          = verbose
+      )
       indice_parental_2 <- seleccionar_individuo(
-                            vector_fitness   = fitness_ind_poblacion,
-                            metrica          = metrica,
-                            metodo_seleccion = metodo_seleccion,
-                            verbose          = verbose
-                          )
+        vector_fitness   = fitness_ind_poblacion,
+        metrica          = metrica,
+        metodo_seleccion = metodo_seleccion,
+        verbose          = verbose
+      )
       parental_1 <- poblacion[indice_parental_1, ]
       parental_2 <- poblacion[indice_parental_2, ]
       
       # Cruzar parentales para obtener la descendencia
       descendencia <- cruzar_individuos(
-                        parental_1   = parental_1,
-                        parental_2   = parental_2,
-                        metodo_cruce = metodo_cruce,
-                        verbose      = verbose
-                      )
+        parental_1   = parental_1,
+        parental_2   = parental_2,
+        metodo_cruce = metodo_cruce,
+        verbose      = verbose
+      )
       # Mutar la descendencia
       descendencia <- mutar_individuo(
-                        individuo = descendencia,
-                        prob_mut  = prob_mut
-                      )
+        individuo = descendencia,
+        prob_mut  = prob_mut
+      )
       # Si n_max_estricto=TRUE, se elimina el exceso de TRUEs en la
       # secuencia de la descendencia.
       if (n_max_estricto) {
         descendencia <- forzar_n_max(
-                          individuo = descendencia,
-                          n_max     = n_max_predictores
-                        )
+          individuo = descendencia,
+          n_max     = n_max_predictores
+        )
       }
       
       # Almacenar el nuevo descendiente en la nueva población: puede ocurrir que
@@ -1653,7 +1659,7 @@ seleccionar_predictores_ga <- function(
     # crean nuevas generaciones.
     
     if (parada_temprana && (i > rondas_parada)) {
-      ultimos_n <- tail(unlist(diferencia_abs), n = rondas_parada)
+      ultimos_n <- tail(unlist(porcentaje_mejora), n = rondas_parada)
       if (all(ultimos_n < tolerancia_parada)) {
         print(paste(
           "Algoritmo detenido en la generacion", i,
@@ -1684,6 +1690,9 @@ seleccionar_predictores_ga <- function(
   # diferencia_abs: 
   #   un vector con el porcentaje de mejora entre el mejor individuo de cada
   #   generación.
+  # porcentaje_mejora: 
+  #   un vector con el porcentaje de mejora entre el mejor individuo de cada
+  #   generación.
   # df_resultados:
   #   un dataframe con todos los resultados anteriores.
   # mejor_individuo_global: 
@@ -1692,44 +1701,47 @@ seleccionar_predictores_ga <- function(
   
   resultados_fitness <- unlist(resultados_fitness)
   diferencia_abs     <- c(NA, unlist(diferencia_abs))
+  porcentaje_mejora  <- c(NA, unlist(porcentaje_mejora))
   
   # Para poder añadir al dataframe la secuencia de predictores, se concatenan.
   predictores <- resultados_individuo[!sapply(resultados_individuo, is.null)]
   predictores <- sapply(
-                  X = predictores,
-                  FUN = function(x) {
-                          paste(x, collapse = ", ")
-                        }
-                  )
+    X = predictores,
+    FUN = function(x) {
+      paste(x, collapse = ", ")
+    }
+  )
   
   df_resultados <- data.frame(
-                      generacion  = seq_along(resultados_fitness),
-                      fitness     = resultados_fitness,
-                      predictores = predictores,
-                      mejora      = diferencia_abs
-                    )
+    generacion        = seq_along(resultados_fitness),
+    fitness           = resultados_fitness,
+    predictores       = predictores,
+    porcentaje_mejora = porcentaje_mejora,
+    mejora            = diferencia_abs
+  )
   
   # Frecuencia relativa con la que aparece cada predictor en el mejor individuo
   # a lo largo de las generaciones.
   frecuencia_seleccion <- tibble::enframe(
-                            x = table(unlist(resultados_individuo)),
-                            name = "pred",
-                            value = "frec"
-                          )
-                          
+    x = table(unlist(resultados_individuo)),
+    name = "pred",
+    value = "frec"
+  )
+  
   frecuencia_seleccion <- frecuencia_seleccion[order(-frecuencia_seleccion$frec), ]
   frecuencia_seleccion$frec <- as.numeric(100*(frecuencia_seleccion$frec/i))
   top_5_predictores <- head(frecuencia_seleccion, 5)$pred
   
   resultados <- list(
-                  fitness                = resultados_fitness,
-                  mejor_individuo        = resultados_individuo,
-                  diferencia_abs         = diferencia_abs,
-                  df_resultados          = df_resultados,
-                  mejor_individuo_global = mejor_individuo_global,
-                  frecuencia_seleccion   = frecuencia_seleccion,
-                  top_5_predictores      = top_5_predictores
-                )
+    fitness                = resultados_fitness,
+    mejor_individuo        = resultados_individuo,
+    diferencia_abs         = diferencia_abs,
+    porcentaje_mejora      = porcentaje_mejora,
+    df_resultados          = df_resultados,
+    mejor_individuo_global = mejor_individuo_global,
+    frecuencia_seleccion   = frecuencia_seleccion,
+    top_5_predictores      = top_5_predictores
+  )
   
   end_time <- Sys.time()
   
@@ -1752,7 +1764,7 @@ seleccionar_predictores_ga <- function(
   attr(resultados, 'parada_temprana')     <- parada_temprana
   attr(resultados, 'rondas_parada')       <- rondas_parada
   attr(resultados, 'tolerancia_parada')   <- tolerancia_parada
-
+  
   
   # INFORMACIÓN DEL PROCESO (VERBOSE)
   # ----------------------------------------------------------------------------
@@ -1893,7 +1905,7 @@ seleccion <- seleccionar_predictores_ga(
                                     x = datos[, -1],
                                     y = datos$y,
                                     n_poblacion = 50,
-                                    n_generaciones = 50,
+                                    n_generaciones = 20,
                                     n_max_predictores = 5,
                                     n_max_estricto = FALSE,
                                     n_min_predictores = 1,
