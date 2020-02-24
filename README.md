@@ -2,6 +2,8 @@
 
 Este repositorio contiene apuntes personales sobre estadística, bioestadística, *machine learning* y lenguaje de programación R. Para ver los documentos en formato web (html) visitar [Rpubs](https://rpubs.com/Joaquin_AR) o [cienciadedatos.net](https://cienciadedatos.net).
 
++ [Detección de anomalías con Autoencoders y PCA](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/52_deteccion_anomalias_autoencoder_pca.pdf)
+
 + [Comparación de distribuciones: test Kolmogorov–Smirnov](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/51_comparacion_distribuciones_Kolmogorov–Smirnov.pdf)
 
 + [Optimización con enjambre de partículas (Particle Swarm Optimization PSO)](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/49_Optimizacion_con_particle_swarm.pdf)
