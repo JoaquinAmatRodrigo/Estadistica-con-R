@@ -1,6 +1,8 @@
 # Estadística y Machine Learning con R
 
-Este repositorio contiene apuntes personales sobre estadística, bioestadística, *machine learning* y lenguaje de programación R. Para ver los documentos en formato web (html) visitar [Rpubs](https://rpubs.com/Joaquin_AR) o [cienciadedatos.net](https://cienciadedatos.net).
+Este repositorio contiene apuntes personales sobre estadística, bioestadística, *machine learning* y lenguaje de programación R. Para ver los documentos en formato web (html) visitar [cienciadedatos.net](https://cienciadedatos.net) o [Rpubs](https://rpubs.com/Joaquin_AR).
+
++ [Regresión cuantílica: Quantile Regression Forest](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/53_regresion_cuantilica_quantile_regresion_forest.pdf)
 
 + [Detección de anomalías con Autoencoders y PCA](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/52_deteccion_anomalias_autoencoder_pca.pdf)
 
