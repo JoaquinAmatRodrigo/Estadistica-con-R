@@ -2,6 +2,8 @@
 
 Este repositorio contiene apuntes personales sobre estadística, bioestadística, *machine learning* y lenguaje de programación R. Para ver los documentos en formato web (html) visitar [cienciadedatos.net](https://cienciadedatos.net) o [Rpubs](https://rpubs.com/Joaquin_AR).
 
++ [Ajuste de distribuciones con R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/55_ajuste_distribuciones_con_r.pdf)
+
 + [Distributional Regression Forest: Random Forest probabilístico](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/54_distributional_regresion_forest.pdf)
 
 + [Regresión cuantílica: Quantile Regression Forest](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/53_regresion_cuantilica_quantile_regresion_forest.pdf)
