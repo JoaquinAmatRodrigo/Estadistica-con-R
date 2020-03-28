@@ -4,6 +4,8 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 
 + [Ajuste de distribuciones con R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/55_ajuste_distribuciones_con_r.pdf)
 
++ [Regresión cuantílica: Gradient Boosting Quantile Regression](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/56_regresion_cuantilica_gradient_boosting.pdf)
+
 + [Distributional Regression Forest: Random Forest probabilístico](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/54_distributional_regresion_forest.pdf)
 
 + [Regresión cuantílica: Quantile Regression Forest](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/53_regresion_cuantilica_quantile_regresion_forest.pdf)
