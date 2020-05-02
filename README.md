@@ -4,6 +4,8 @@ Este repositorio contiene apuntes personales sobre estadística, bioestadística
 
 + [Regresión cuantílica: modelos GAMLSS](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/65_regresion_cuantilica_gamlss.pdf)
 
++ [Introducción a los modelos GAMLSS](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/65_regresion_cuantilica_gamlss.pdf)
+
 + [Ajuste de distribuciones con R](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/55_ajuste_distribuciones_con_r.pdf)
 
 + [Regresión cuantílica: Gradient Boosting Quantile Regression](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/56_regresion_cuantilica_gradient_boosting.pdf)
