@@ -1,6 +1,6 @@
 # Estadística y Machine Learning con R
 
-Este repositorio contiene apuntes personales sobre estadística, bioestadística, *machine learning* y lenguaje de programación R. Para ver los documentos en formato web (html) visitar [cienciadedatos.net](https://cienciadedatos.net) o [Rpubs](https://rpubs.com/Joaquin_AR).
+Este repositorio contiene apuntes personales sobre estadística, bioestadística, *machine learning* y lenguaje de programación R. Para ver los documentos en formato web (html) visitar [cienciadedatos.net](https://cienciadedatos.net).
 
 + [Regresión cuantílica: modelos GAMLSS](https://github.com/JoaquinAmatRodrigo/Estadistica-con-R/blob/master/PDF_format/65_regresion_cuantilica_gamlss.pdf)
 
